@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IOrderInfoBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.OrderInfoBase">
+    <id column="C_ID" jdbcType="CHAR" property="id" />
+    <result column="V_ORDER_NO" jdbcType="VARCHAR" property="orderNo" />
+    <result column="D_CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="N_AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="V_QUANTITY" jdbcType="VARCHAR" property="quantity" />
+    <result column="D_EXP_TIME" jdbcType="TIMESTAMP" property="expTime" />
+    <result column="N_PAY_TYPE" jdbcType="DECIMAL" property="payType" />
+    <result column="N_STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="C_CORP_ID" jdbcType="CHAR" property="corpId" />
+    <result column="C_USER_ID" jdbcType="CHAR" property="userId" />
+    <result column="C_PRODUCT_ID" jdbcType="CHAR" property="productId" />
+    <result column="V_DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="V_MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="D_PAY_TIME" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="V_THIRD_PLATE_FLOW_NO" jdbcType="VARCHAR" property="thirdPlateFlowNo" />
+    <result column="C_DEPARTMENT_ID" jdbcType="CHAR" property="departmentId" />
+    <result column="N_GIFT_STATUS" jdbcType="DECIMAL" property="giftStatus" />
+    <result column="C_LKUSER_ID" jdbcType="CHAR" property="lkuserId" />
+    <result column="C_PRODUCT_RELATION_ID" jdbcType="CHAR" property="productRelationId" />
+    <result column="N_IS_DELETE" jdbcType="DECIMAL" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_ID, V_ORDER_NO, D_CREATE_TIME, N_AMOUNT, V_QUANTITY, D_EXP_TIME, N_PAY_TYPE, N_STATUS, 
+    C_CORP_ID, C_USER_ID, C_PRODUCT_ID, V_DESCRIPTION, V_MEMO, D_PAY_TIME, V_THIRD_PLATE_FLOW_NO, 
+    C_DEPARTMENT_ID, N_GIFT_STATUS, C_LKUSER_ID, C_PRODUCT_RELATION_ID, N_IS_DELETE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SHOP_ORDER_INFO
+    where C_ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SHOP_ORDER_INFO
+    where C_ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.OrderInfoBase">
+    insert into SHOP_ORDER_INFO (C_ID, V_ORDER_NO, D_CREATE_TIME, 
+      N_AMOUNT, V_QUANTITY, D_EXP_TIME, 
+      N_PAY_TYPE, N_STATUS, C_CORP_ID, 
+      C_USER_ID, C_PRODUCT_ID, V_DESCRIPTION, 
+      V_MEMO, D_PAY_TIME, V_THIRD_PLATE_FLOW_NO, 
+      C_DEPARTMENT_ID, N_GIFT_STATUS, C_LKUSER_ID, 
+      C_PRODUCT_RELATION_ID, N_IS_DELETE)
+    values (#{id,jdbcType=CHAR}, #{orderNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{amount,jdbcType=DECIMAL}, #{quantity,jdbcType=VARCHAR}, #{expTime,jdbcType=TIMESTAMP}, 
+      #{payType,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, #{corpId,jdbcType=CHAR}, 
+      #{userId,jdbcType=CHAR}, #{productId,jdbcType=CHAR}, #{description,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{thirdPlateFlowNo,jdbcType=VARCHAR}, 
+      #{departmentId,jdbcType=CHAR}, #{giftStatus,jdbcType=DECIMAL}, #{lkuserId,jdbcType=CHAR}, 
+      #{productRelationId,jdbcType=CHAR}, #{isDelete,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.OrderInfoBase">
+    insert into SHOP_ORDER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        C_ID,
+      </if>
+      <if test="orderNo != null">
+        V_ORDER_NO,
+      </if>
+      <if test="createTime != null">
+        D_CREATE_TIME,
+      </if>
+      <if test="amount != null">
+        N_AMOUNT,
+      </if>
+      <if test="quantity != null">
+        V_QUANTITY,
+      </if>
+      <if test="expTime != null">
+        D_EXP_TIME,
+      </if>
+      <if test="payType != null">
+        N_PAY_TYPE,
+      </if>
+      <if test="status != null">
+        N_STATUS,
+      </if>
+      <if test="corpId != null">
+        C_CORP_ID,
+      </if>
+      <if test="userId != null">
+        C_USER_ID,
+      </if>
+      <if test="productId != null">
+        C_PRODUCT_ID,
+      </if>
+      <if test="description != null">
+        V_DESCRIPTION,
+      </if>
+      <if test="memo != null">
+        V_MEMO,
+      </if>
+      <if test="payTime != null">
+        D_PAY_TIME,
+      </if>
+      <if test="thirdPlateFlowNo != null">
+        V_THIRD_PLATE_FLOW_NO,
+      </if>
+      <if test="departmentId != null">
+        C_DEPARTMENT_ID,
+      </if>
+      <if test="giftStatus != null">
+        N_GIFT_STATUS,
+      </if>
+      <if test="lkuserId != null">
+        C_LKUSER_ID,
+      </if>
+      <if test="productRelationId != null">
+        C_PRODUCT_RELATION_ID,
+      </if>
+      <if test="isDelete != null">
+        N_IS_DELETE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="expTime != null">
+        #{expTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="corpId != null">
+        #{corpId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdPlateFlowNo != null">
+        #{thirdPlateFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=CHAR},
+      </if>
+      <if test="giftStatus != null">
+        #{giftStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="lkuserId != null">
+        #{lkuserId,jdbcType=CHAR},
+      </if>
+      <if test="productRelationId != null">
+        #{productRelationId,jdbcType=CHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.OrderInfoBase">
+    update SHOP_ORDER_INFO
+    <set>
+      <if test="orderNo != null">
+        V_ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        D_CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null">
+        N_AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null">
+        V_QUANTITY = #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="expTime != null">
+        D_EXP_TIME = #{expTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null">
+        N_PAY_TYPE = #{payType,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        N_STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="corpId != null">
+        C_CORP_ID = #{corpId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        C_USER_ID = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="productId != null">
+        C_PRODUCT_ID = #{productId,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        V_DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        V_MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null">
+        D_PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdPlateFlowNo != null">
+        V_THIRD_PLATE_FLOW_NO = #{thirdPlateFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        C_DEPARTMENT_ID = #{departmentId,jdbcType=CHAR},
+      </if>
+      <if test="giftStatus != null">
+        N_GIFT_STATUS = #{giftStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="lkuserId != null">
+        C_LKUSER_ID = #{lkuserId,jdbcType=CHAR},
+      </if>
+      <if test="productRelationId != null">
+        C_PRODUCT_RELATION_ID = #{productRelationId,jdbcType=CHAR},
+      </if>
+      <if test="isDelete != null">
+        N_IS_DELETE = #{isDelete,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where C_ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.OrderInfoBase">
+    update SHOP_ORDER_INFO
+    set V_ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      D_CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      N_AMOUNT = #{amount,jdbcType=DECIMAL},
+      V_QUANTITY = #{quantity,jdbcType=VARCHAR},
+      D_EXP_TIME = #{expTime,jdbcType=TIMESTAMP},
+      N_PAY_TYPE = #{payType,jdbcType=DECIMAL},
+      N_STATUS = #{status,jdbcType=DECIMAL},
+      C_CORP_ID = #{corpId,jdbcType=CHAR},
+      C_USER_ID = #{userId,jdbcType=CHAR},
+      C_PRODUCT_ID = #{productId,jdbcType=CHAR},
+      V_DESCRIPTION = #{description,jdbcType=VARCHAR},
+      V_MEMO = #{memo,jdbcType=VARCHAR},
+      D_PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      V_THIRD_PLATE_FLOW_NO = #{thirdPlateFlowNo,jdbcType=VARCHAR},
+      C_DEPARTMENT_ID = #{departmentId,jdbcType=CHAR},
+      N_GIFT_STATUS = #{giftStatus,jdbcType=DECIMAL},
+      C_LKUSER_ID = #{lkuserId,jdbcType=CHAR},
+      C_PRODUCT_RELATION_ID = #{productRelationId,jdbcType=CHAR},
+      N_IS_DELETE = #{isDelete,jdbcType=DECIMAL}
+    where C_ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

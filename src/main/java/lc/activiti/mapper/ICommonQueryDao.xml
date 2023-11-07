@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.ICommonQueryDao">
+    <resultMap type="lc.activiti.entity.WechartNoticeUsersModel" id="getCounterSignUserListMap"
+               extends="lc.activiti.dao.base.IWechartNoticeUsersBaseDao.BaseResultMap">
+        <result column="roleId" property="roleId"/>
+    </resultMap>
+    <select id="selectUsersByRoleType"
+            resultMap="lc.activiti.dao.base.IUserBaseDao.BaseResultMap">
+		select * from lcbase.t_zip_user where d_enddate>sysdate and C_USER_ID in(select ur.c_user_id from
+    lcbase.oa_aut_user_role ur where ur.c_role_id in(
+    select r.c_role_id from lcbase.oa_aut_role r where ROLE_TYPE=${roleTypeId}
+    ))
+	</select>
+    <select id="selectContracBrowsePerssiontByContractId"
+            resultMap="lc.activiti.dao.base.IBrowsePermissionBaseDao.BaseResultMap" parameterType="java.lang.String">
+	select * from HT_BROWSE_PERMISSION where C_CONTRACT_ID=#{contractId} and N_STATUS=2
+	</select>
+    <select id="isForensic" resultType="boolean">
+		select count(1) from T_LK_USER_INFO where C_USER_ID in(select OA__ID from
+		OA_USER_ROLES where OA__ID2 in(
+		select Id from Oa_Roles where ROLE_TYPE=${roleTypeId}
+		)) and C_USER_ID=#{userId}
+	</select>
+    <select id="getContractByBrowsePermissionId" resultMap="lc.activiti.dao.base.IContractBaseDao.BaseResultMap">
+		select * from HT_CONTRACT_INFO where C_CONTRACT_ID =(select C_CONTRACT_ID from HT_BROWSE_PERMISSION where C_BROWSE_PERMISSION_ID=#{browsePermissionId} and rownum=1)
+	</select>
+    <select id="getCounterSignUserList" resultMap="getCounterSignUserListMap">
+	<![CDATA[
+
+
+select  Distinct WNU.C_OPENID,WNU.C_FORMID,WNU.C_USER_ID,WNU.V_USER_NAME,UR.OA__ID2 roleId from HT_Wechart_Notice_Users WNU
+INNER JOIN OA_USER_ROLES UR ON UR.OA__ID=WNU.C_USER_ID 
+where ROUND(TO_NUMBER(sysdate-WNU.D_UPLOAD_DATE))<7 AND UR.OA__ID2 IN(
+      select Id from Oa_Roles where ROLE_TYPE in(60,11,16,82)
+)  AND WNU.n_Status=0
+
+        ]]>
+	</select>
+    <select id="getNextApprovalUserList" resultMap="lc.activiti.dao.base.IWechartNoticeUsersBaseDao.BaseResultMap">
+
+
+		select Distinct WNU.C_OPENID, WNU.C_FORMID, WNU.C_USER_ID, WNU.V_USER_NAME
+		  from HT_Wechart_Notice_Users WNU
+		 where wnu.c_user_id in
+		         <foreach item="item" index="index" collection="userIds" open="(" separator="," close=")">
+            　　　　#{item}
+        </foreach>
+		   and ROUND(TO_NUMBER(sysdate - WNU.D_UPLOAD_DATE)) &lt; 7
+		   AND WNU.n_Status = 0
+
+	</select>
+    <select id="getWaitingNoticeContractList" resultMap="lc.activiti.dao.base.IContractBaseDao.BaseResultMap">
+	<![CDATA[
+
+        select * from HT_CONTRACT_INFO ci where ROUND(TO_NUMBER(sysdate-ci.d_submit_date))>24 and ci.N_IS_APPROVAL_NOTICE=0
+
+        ]]>
+	</select>
+    <select id="getWaitingCountSignContractList" resultMap="lc.activiti.dao.base.IContractBaseDao.BaseResultMap">
+	<![CDATA[
+
+        select * from HT_CONTRACT_INFO ci where  ci.N_IS_COUNTSIGN_NOTICE=0 and ci.C_CONTRACT_ID=#{contractId}
+
+        ]]>
+	</select>
+    <select id="getApplyPersonWebchartInfo" resultMap="lc.activiti.dao.base.IWechartNoticeUsersBaseDao.BaseResultMap">
+		<![CDATA[
+
+
+	select  Distinct WNU.C_OPENID,WNU.C_FORMID,WNU.C_USER_ID,WNU.V_USER_NAME from HT_Wechart_Notice_Users WNU
+where ROUND(TO_NUMBER(sysdate-WNU.D_UPLOAD_DATE))<7 and WNU.C_USER_ID=#{userId} AND WNU.n_Status=0
+
+        ]]>
+	</select>
+    <select id="getWXAppInfo" resultMap="lc.activiti.dao.base.IWXAppLoginInfoBaseDao.BaseResultMap">
+	select xi.* from T_WX_APP_LOGIN_INFO xi where xi.WX_APP_TYPE=5
+	</select>
+    <select id="getSumbitedOrApprovaledContractList" resultMap="lc.activiti.dao.base.IContractBaseDao.BaseResultMap">
+	select ci.* from HT_CONTRACT_INFO ci where ci.N_STATUS in(2,3)
+	</select>
+    <select id="getAuditedContractList" resultMap="lc.activiti.dao.base.IContractBaseDao.BaseResultMap">
+	select ci.* from HT_CONTRACT_INFO ci where ci.N_STATUS=4
+	</select>
+    <update id="ResetContractCounterSign">
+	Update HT_CONTRACT_COUNTERSIGN CC Set cc.N_DELETED=1,cc.D_UPDATE=sysdate,cc.N_IS_WITHDRAW=1 where cc.N_DELETED=0 and CC.C_CONTRACT_ID=#{contractId}
+	</update>
+    <select id="departPositionOnTheJobNums" resultType="java.lang.Long">
+		select count(1) from T_LK_USER_INFO where C_USER_ID in(select OA__ID from
+		OA_USER_ROLES where OA__ID2 in(
+		select Id from Oa_Roles where ROLE_TYPE=${roleTypeId}
+		)) and C_USER_couID=#{userId}
+	</select>
+    <select id="departPostitionPlanNums" resultType="java.lang.Long">
+	select count(*) from oa_recruit_plan rp where decode(rp.c_dep_id1,null,'-1',rp.c_dep_id1)=decode(#{depId1},null,'-1',#{depId1})
+	and decode(rp.c_dep_id2,null,'-1',rp.c_dep_id2)=decode(#{depId2},null,'-1',#{depId2})
+	and decode(rp.c_dep_id3,null,'-1',rp.c_dep_id3)=decode(#{depId3},null,'-1',#{depId3})
+	decode(rp.c_dep_id4,null,'-1',rp.c_dep_id4)=decode(#{depId4},null,'-1',#{depId4})
+	decode(rp.c_dep_id5,null,'-1',rp.c_dep_id5)=decode(#{depId5},null,'-1',#{depId5})
+	and rp.c_position_id=#{positionId}
+</select>
+</mapper>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IRolesBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.Roles">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    <result column="INSERT_USER_ID" jdbcType="CHAR" property="insertUserId" />
+    <result column="INSERT_DATE_TIME" jdbcType="TIMESTAMP" property="insertDateTime" />
+    <result column="UPDATE_USER_ID" jdbcType="CHAR" property="updateUserId" />
+    <result column="UPDATE_DATE_TIME" jdbcType="TIMESTAMP" property="updateDateTime" />
+    <result column="COMPANY_ID" jdbcType="CHAR" property="companyId" />
+    <result column="DELETED" jdbcType="DECIMAL" property="deleted" />
+    <result column="ROLE_TYPE" jdbcType="DECIMAL" property="roleType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ROLE_CODE, ROLE_NAME, INSERT_USER_ID, INSERT_DATE_TIME, UPDATE_USER_ID, UPDATE_DATE_TIME, 
+    COMPANY_ID, DELETED, ROLE_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OA_ROLES
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from OA_ROLES
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.Roles">
+    insert into OA_ROLES (ID, ROLE_CODE, ROLE_NAME, 
+      INSERT_USER_ID, INSERT_DATE_TIME, UPDATE_USER_ID, 
+      UPDATE_DATE_TIME, COMPANY_ID, DELETED, 
+      ROLE_TYPE)
+    values (#{id,jdbcType=CHAR}, #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
+      #{insertUserId,jdbcType=CHAR}, #{insertDateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=CHAR}, 
+      #{updateDateTime,jdbcType=TIMESTAMP}, #{companyId,jdbcType=CHAR}, #{deleted,jdbcType=DECIMAL}, 
+      #{roleType,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.Roles">
+    insert into OA_ROLES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="roleCode != null">
+        ROLE_CODE,
+      </if>
+      <if test="roleName != null">
+        ROLE_NAME,
+      </if>
+      <if test="insertUserId != null">
+        INSERT_USER_ID,
+      </if>
+      <if test="insertDateTime != null">
+        INSERT_DATE_TIME,
+      </if>
+      <if test="updateUserId != null">
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateDateTime != null">
+        UPDATE_DATE_TIME,
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID,
+      </if>
+      <if test="deleted != null">
+        DELETED,
+      </if>
+      <if test="roleType != null">
+        ROLE_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="insertUserId != null">
+        #{insertUserId,jdbcType=CHAR},
+      </if>
+      <if test="insertDateTime != null">
+        #{insertDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="updateDateTime != null">
+        #{updateDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.Roles">
+    update OA_ROLES
+    <set>
+      <if test="roleCode != null">
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="insertUserId != null">
+        INSERT_USER_ID = #{insertUserId,jdbcType=CHAR},
+      </if>
+      <if test="insertDateTime != null">
+        INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="updateDateTime != null">
+        UPDATE_DATE_TIME = #{updateDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID = #{companyId,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="roleType != null">
+        ROLE_TYPE = #{roleType,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.Roles">
+    update OA_ROLES
+    set ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      INSERT_USER_ID = #{insertUserId,jdbcType=CHAR},
+      INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      UPDATE_DATE_TIME = #{updateDateTime,jdbcType=TIMESTAMP},
+      COMPANY_ID = #{companyId,jdbcType=CHAR},
+      DELETED = #{deleted,jdbcType=DECIMAL},
+      ROLE_TYPE = #{roleType,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

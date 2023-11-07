@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IExpensesBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.ExpensesBase">
+    <id column="C_EXPENSES_ID" jdbcType="CHAR" property="expensesId" />
+    <result column="N_EXPENSES_TYPE" jdbcType="DECIMAL" property="expensesType" />
+    <result column="C_EXPENSES_USER_ID" jdbcType="CHAR" property="expensesUserId" />
+    <result column="V_EXPENSES_USER" jdbcType="OTHER" property="expensesUser" />
+    <result column="C_DEPARTMENT_ID" jdbcType="CHAR" property="departmentId" />
+    <result column="C_POSITION_ID" jdbcType="CHAR" property="positionId" />
+    <result column="V_FEE_RESON" jdbcType="OTHER" property="feeReson" />
+    <result column="D_INPUT" jdbcType="TIMESTAMP" property="input" />
+    <result column="V_PROJECT" jdbcType="OTHER" property="project" />
+    <result column="N_BORRWED_AMOUNT" jdbcType="DECIMAL" property="borrwedAmount" />
+    <result column="N_PAYMENTS" jdbcType="DECIMAL" property="payments" />
+    <result column="V_REJECT_RESON" jdbcType="OTHER" property="rejectReson" />
+    <result column="D_REJECT_DATE" jdbcType="TIMESTAMP" property="rejectDate" />
+    <result column="C_REJECT_USER_ID" jdbcType="CHAR" property="rejectUserId" />
+    <result column="V_REJECT_USER_NAME" jdbcType="OTHER" property="rejectUserName" />
+    <result column="V_LINK_TEL" jdbcType="OTHER" property="linkTel" />
+    <result column="D_UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="C_UPDATE_USER_ID" jdbcType="CHAR" property="updateUserId" />
+    <result column="N_STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="V_EXPENSES_NO" jdbcType="OTHER" property="expensesNo" />
+    <result column="N_TOTAL_AMOUNT" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="N_CURRENT_LEVEL" jdbcType="DECIMAL" property="currentLevel" />
+    <result column="V_DEPARTMENT_NAME" jdbcType="OTHER" property="departmentName" />
+    <result column="V_POSITION_NAME" jdbcType="OTHER" property="positionName" />
+    <result column="C_PROJECT_ID" jdbcType="CHAR" property="projectId" />
+    <result column="N_ACTUALLY_PAID" jdbcType="DECIMAL" property="actuallyPaid" />
+    <result column="N_REIMBURSEMENTSTATE" jdbcType="DECIMAL" property="reimbursementstate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_EXPENSES_ID, N_EXPENSES_TYPE, C_EXPENSES_USER_ID, V_EXPENSES_USER, C_DEPARTMENT_ID, 
+    C_POSITION_ID, V_FEE_RESON, D_INPUT, V_PROJECT, N_BORRWED_AMOUNT, N_PAYMENTS, V_REJECT_RESON, 
+    D_REJECT_DATE, C_REJECT_USER_ID, V_REJECT_USER_NAME, V_LINK_TEL, D_UPDATE_DATE, C_UPDATE_USER_ID, 
+    N_STATUS, V_EXPENSES_NO, N_TOTAL_AMOUNT, N_CURRENT_LEVEL, V_DEPARTMENT_NAME, V_POSITION_NAME, 
+    C_PROJECT_ID, N_ACTUALLY_PAID, N_REIMBURSEMENTSTATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OA_EXPENSES
+    where C_EXPENSES_ID = #{expensesId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from OA_EXPENSES
+    where C_EXPENSES_ID = #{expensesId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.ExpensesBase">
+    insert into OA_EXPENSES (C_EXPENSES_ID, N_EXPENSES_TYPE, C_EXPENSES_USER_ID, 
+      V_EXPENSES_USER, C_DEPARTMENT_ID, C_POSITION_ID, 
+      V_FEE_RESON, D_INPUT, V_PROJECT, 
+      N_BORRWED_AMOUNT, N_PAYMENTS, V_REJECT_RESON, 
+      D_REJECT_DATE, C_REJECT_USER_ID, V_REJECT_USER_NAME, 
+      V_LINK_TEL, D_UPDATE_DATE, C_UPDATE_USER_ID, 
+      N_STATUS, V_EXPENSES_NO, N_TOTAL_AMOUNT, 
+      N_CURRENT_LEVEL, V_DEPARTMENT_NAME, V_POSITION_NAME, 
+      C_PROJECT_ID, N_ACTUALLY_PAID, N_REIMBURSEMENTSTATE
+      )
+    values (#{expensesId,jdbcType=CHAR}, #{expensesType,jdbcType=DECIMAL}, #{expensesUserId,jdbcType=CHAR}, 
+      #{expensesUser,jdbcType=OTHER}, #{departmentId,jdbcType=CHAR}, #{positionId,jdbcType=CHAR}, 
+      #{feeReson,jdbcType=OTHER}, #{input,jdbcType=TIMESTAMP}, #{project,jdbcType=OTHER}, 
+      #{borrwedAmount,jdbcType=DECIMAL}, #{payments,jdbcType=DECIMAL}, #{rejectReson,jdbcType=OTHER}, 
+      #{rejectDate,jdbcType=TIMESTAMP}, #{rejectUserId,jdbcType=CHAR}, #{rejectUserName,jdbcType=OTHER}, 
+      #{linkTel,jdbcType=OTHER}, #{updateDate,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=CHAR}, 
+      #{status,jdbcType=DECIMAL}, #{expensesNo,jdbcType=OTHER}, #{totalAmount,jdbcType=DECIMAL}, 
+      #{currentLevel,jdbcType=DECIMAL}, #{departmentName,jdbcType=OTHER}, #{positionName,jdbcType=OTHER}, 
+      #{projectId,jdbcType=CHAR}, #{actuallyPaid,jdbcType=DECIMAL}, #{reimbursementstate,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.ExpensesBase">
+    insert into OA_EXPENSES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="expensesId != null">
+        C_EXPENSES_ID,
+      </if>
+      <if test="expensesType != null">
+        N_EXPENSES_TYPE,
+      </if>
+      <if test="expensesUserId != null">
+        C_EXPENSES_USER_ID,
+      </if>
+      <if test="expensesUser != null">
+        V_EXPENSES_USER,
+      </if>
+      <if test="departmentId != null">
+        C_DEPARTMENT_ID,
+      </if>
+      <if test="positionId != null">
+        C_POSITION_ID,
+      </if>
+      <if test="feeReson != null">
+        V_FEE_RESON,
+      </if>
+      <if test="input != null">
+        D_INPUT,
+      </if>
+      <if test="project != null">
+        V_PROJECT,
+      </if>
+      <if test="borrwedAmount != null">
+        N_BORRWED_AMOUNT,
+      </if>
+      <if test="payments != null">
+        N_PAYMENTS,
+      </if>
+      <if test="rejectReson != null">
+        V_REJECT_RESON,
+      </if>
+      <if test="rejectDate != null">
+        D_REJECT_DATE,
+      </if>
+      <if test="rejectUserId != null">
+        C_REJECT_USER_ID,
+      </if>
+      <if test="rejectUserName != null">
+        V_REJECT_USER_NAME,
+      </if>
+      <if test="linkTel != null">
+        V_LINK_TEL,
+      </if>
+      <if test="updateDate != null">
+        D_UPDATE_DATE,
+      </if>
+      <if test="updateUserId != null">
+        C_UPDATE_USER_ID,
+      </if>
+      <if test="status != null">
+        N_STATUS,
+      </if>
+      <if test="expensesNo != null">
+        V_EXPENSES_NO,
+      </if>
+      <if test="totalAmount != null">
+        N_TOTAL_AMOUNT,
+      </if>
+      <if test="currentLevel != null">
+        N_CURRENT_LEVEL,
+      </if>
+      <if test="departmentName != null">
+        V_DEPARTMENT_NAME,
+      </if>
+      <if test="positionName != null">
+        V_POSITION_NAME,
+      </if>
+      <if test="projectId != null">
+        C_PROJECT_ID,
+      </if>
+      <if test="actuallyPaid != null">
+        N_ACTUALLY_PAID,
+      </if>
+      <if test="reimbursementstate != null">
+        N_REIMBURSEMENTSTATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="expensesId != null">
+        #{expensesId,jdbcType=CHAR},
+      </if>
+      <if test="expensesType != null">
+        #{expensesType,jdbcType=DECIMAL},
+      </if>
+      <if test="expensesUserId != null">
+        #{expensesUserId,jdbcType=CHAR},
+      </if>
+      <if test="expensesUser != null">
+        #{expensesUser,jdbcType=OTHER},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=CHAR},
+      </if>
+      <if test="positionId != null">
+        #{positionId,jdbcType=CHAR},
+      </if>
+      <if test="feeReson != null">
+        #{feeReson,jdbcType=OTHER},
+      </if>
+      <if test="input != null">
+        #{input,jdbcType=TIMESTAMP},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=OTHER},
+      </if>
+      <if test="borrwedAmount != null">
+        #{borrwedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payments != null">
+        #{payments,jdbcType=DECIMAL},
+      </if>
+      <if test="rejectReson != null">
+        #{rejectReson,jdbcType=OTHER},
+      </if>
+      <if test="rejectDate != null">
+        #{rejectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rejectUserId != null">
+        #{rejectUserId,jdbcType=CHAR},
+      </if>
+      <if test="rejectUserName != null">
+        #{rejectUserName,jdbcType=OTHER},
+      </if>
+      <if test="linkTel != null">
+        #{linkTel,jdbcType=OTHER},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="expensesNo != null">
+        #{expensesNo,jdbcType=OTHER},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="currentLevel != null">
+        #{currentLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=OTHER},
+      </if>
+      <if test="positionName != null">
+        #{positionName,jdbcType=OTHER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=CHAR},
+      </if>
+      <if test="actuallyPaid != null">
+        #{actuallyPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="reimbursementstate != null">
+        #{reimbursementstate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.ExpensesBase">
+    update OA_EXPENSES
+    <set>
+      <if test="expensesType != null">
+        N_EXPENSES_TYPE = #{expensesType,jdbcType=DECIMAL},
+      </if>
+      <if test="expensesUserId != null">
+        C_EXPENSES_USER_ID = #{expensesUserId,jdbcType=CHAR},
+      </if>
+      <if test="expensesUser != null">
+        V_EXPENSES_USER = #{expensesUser,jdbcType=OTHER},
+      </if>
+      <if test="departmentId != null">
+        C_DEPARTMENT_ID = #{departmentId,jdbcType=CHAR},
+      </if>
+      <if test="positionId != null">
+        C_POSITION_ID = #{positionId,jdbcType=CHAR},
+      </if>
+      <if test="feeReson != null">
+        V_FEE_RESON = #{feeReson,jdbcType=OTHER},
+      </if>
+      <if test="input != null">
+        D_INPUT = #{input,jdbcType=TIMESTAMP},
+      </if>
+      <if test="project != null">
+        V_PROJECT = #{project,jdbcType=OTHER},
+      </if>
+      <if test="borrwedAmount != null">
+        N_BORRWED_AMOUNT = #{borrwedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payments != null">
+        N_PAYMENTS = #{payments,jdbcType=DECIMAL},
+      </if>
+      <if test="rejectReson != null">
+        V_REJECT_RESON = #{rejectReson,jdbcType=OTHER},
+      </if>
+      <if test="rejectDate != null">
+        D_REJECT_DATE = #{rejectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rejectUserId != null">
+        C_REJECT_USER_ID = #{rejectUserId,jdbcType=CHAR},
+      </if>
+      <if test="rejectUserName != null">
+        V_REJECT_USER_NAME = #{rejectUserName,jdbcType=OTHER},
+      </if>
+      <if test="linkTel != null">
+        V_LINK_TEL = #{linkTel,jdbcType=OTHER},
+      </if>
+      <if test="updateDate != null">
+        D_UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        C_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        N_STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="expensesNo != null">
+        V_EXPENSES_NO = #{expensesNo,jdbcType=OTHER},
+      </if>
+      <if test="totalAmount != null">
+        N_TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="currentLevel != null">
+        N_CURRENT_LEVEL = #{currentLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="departmentName != null">
+        V_DEPARTMENT_NAME = #{departmentName,jdbcType=OTHER},
+      </if>
+      <if test="positionName != null">
+        V_POSITION_NAME = #{positionName,jdbcType=OTHER},
+      </if>
+      <if test="projectId != null">
+        C_PROJECT_ID = #{projectId,jdbcType=CHAR},
+      </if>
+      <if test="actuallyPaid != null">
+        N_ACTUALLY_PAID = #{actuallyPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="reimbursementstate != null">
+        N_REIMBURSEMENTSTATE = #{reimbursementstate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where C_EXPENSES_ID = #{expensesId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.ExpensesBase">
+    update OA_EXPENSES
+    set N_EXPENSES_TYPE = #{expensesType,jdbcType=DECIMAL},
+      C_EXPENSES_USER_ID = #{expensesUserId,jdbcType=CHAR},
+      V_EXPENSES_USER = #{expensesUser,jdbcType=OTHER},
+      C_DEPARTMENT_ID = #{departmentId,jdbcType=CHAR},
+      C_POSITION_ID = #{positionId,jdbcType=CHAR},
+      V_FEE_RESON = #{feeReson,jdbcType=OTHER},
+      D_INPUT = #{input,jdbcType=TIMESTAMP},
+      V_PROJECT = #{project,jdbcType=OTHER},
+      N_BORRWED_AMOUNT = #{borrwedAmount,jdbcType=DECIMAL},
+      N_PAYMENTS = #{payments,jdbcType=DECIMAL},
+      V_REJECT_RESON = #{rejectReson,jdbcType=OTHER},
+      D_REJECT_DATE = #{rejectDate,jdbcType=TIMESTAMP},
+      C_REJECT_USER_ID = #{rejectUserId,jdbcType=CHAR},
+      V_REJECT_USER_NAME = #{rejectUserName,jdbcType=OTHER},
+      V_LINK_TEL = #{linkTel,jdbcType=OTHER},
+      D_UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      C_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      N_STATUS = #{status,jdbcType=DECIMAL},
+      V_EXPENSES_NO = #{expensesNo,jdbcType=OTHER},
+      N_TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+      N_CURRENT_LEVEL = #{currentLevel,jdbcType=DECIMAL},
+      V_DEPARTMENT_NAME = #{departmentName,jdbcType=OTHER},
+      V_POSITION_NAME = #{positionName,jdbcType=OTHER},
+      C_PROJECT_ID = #{projectId,jdbcType=CHAR},
+      N_ACTUALLY_PAID = #{actuallyPaid,jdbcType=DECIMAL},
+      N_REIMBURSEMENTSTATE = #{reimbursementstate,jdbcType=DECIMAL}
+    where C_EXPENSES_ID = #{expensesId,jdbcType=CHAR}
+  </update>
+</mapper>

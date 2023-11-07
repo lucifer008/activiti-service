@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IUserBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.Users">
+    <id column="C_USER_ID" jdbcType="CHAR" property="userId" />
+    <result column="C_USER_MOBILE" jdbcType="CHAR" property="userMobile" />
+    <result column="C_USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+    <result column="V_USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="C_CORP_ID" jdbcType="CHAR" property="corpId" />
+    <result column="N_STATION_CODE" jdbcType="DECIMAL" property="stationCode" />
+    <result column="V_STATION_NAME" jdbcType="VARCHAR" property="stationName" />
+    <result column="V_USER_EMAIL" jdbcType="VARCHAR" property="userEmail" />
+    <result column="C_INPUT_USER_ID" jdbcType="CHAR" property="inputUserId" />
+    <result column="V_INPUT_USER_NAME" jdbcType="VARCHAR" property="inputUserName" />
+    <result column="V_USER_TITLE" jdbcType="VARCHAR" property="userTitle" />
+    <result column="D_INPUT_DATE" jdbcType="TIMESTAMP" property="inputDate" />
+    <result column="V_USER_REMARK" jdbcType="VARCHAR" property="userRemark" />
+    <result column="N_INPUT_STATION_CODE" jdbcType="DECIMAL" property="inputStationCode" />
+    <result column="V_INPUT_STATION_NAME" jdbcType="VARCHAR" property="inputStationName" />
+    <result column="N_ENABLED" jdbcType="DECIMAL" property="enabled" />
+    <result column="N_ROLE_TYPE" jdbcType="DECIMAL" property="roleType" />
+    <result column="N_RANK" jdbcType="DECIMAL" property="rank" />
+    <result column="N_TARGET_AMOUNT" jdbcType="DECIMAL" property="targetAmount" />
+    <result column="N_PASS_PERCENT" jdbcType="DECIMAL" property="passPercent" />
+    <result column="C_POSITION_ID" jdbcType="CHAR" property="positionId" />
+    <result column="IS_LOGIN_OA_PERMISSIONS" jdbcType="DECIMAL" property="loginOaPermissions" />
+    <result column="IS_LOGIN_BI_PERMISSIONS" jdbcType="DECIMAL" property="loginBiPermissions" />
+    <result column="IS_LOGIN_LECARLINK_PERMISSION" jdbcType="DECIMAL" property="loginLecarlinkPermission" />
+    <result column="V_WX_OPEN_ID" jdbcType="VARCHAR" property="wxOpenId" />
+    <result column="V_HEADPIC_ALY" jdbcType="VARCHAR" property="headpicAly" />
+    <result column="V_QRCODE_ALY" jdbcType="VARCHAR" property="qrcodeAly" />
+    <result column="C_GROUP_ID" jdbcType="CHAR" property="groupId" />
+    <result column="N_WORK_NUMBER" jdbcType="DECIMAL" property="workNumber" />
+    <result column="V_ID_CARD_NUMBER" jdbcType="CHAR" property="idCardNumber" />
+    <result column="D_HIRE_DATE" jdbcType="TIMESTAMP" property="hireDate" />
+    <result column="IS_LOGIN_ZT_ADMIN" jdbcType="DECIMAL" property="loginZtAdmin" />
+    <result column="N_PROVINCE_CODE" jdbcType="DECIMAL" property="provinceCode" />
+    <result column="N_CITY_CODE" jdbcType="DECIMAL" property="cityCode" />
+    <result column="V_ADDRESS" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <resultMap id="NewBaseResultMap" type="lc.activiti.entity.Users">
+    <id column="C_USER_ID" jdbcType="CHAR" property="userId" />
+    <result column="N_MOBILE_1" jdbcType="CHAR" property="userMobile" />
+    <result column="C_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+    <result column="V_USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="V_EMAIL" jdbcType="VARCHAR" property="userEmail" />
+    <result column="N_STATUS" jdbcType="DECIMAL" property="enabled" />
+    <result column="N_WORK_ID" jdbcType="DECIMAL" property="workNumber" />
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_USER_ID, C_USER_MOBILE, C_USER_PASSWORD, V_USER_NAME, C_CORP_ID, N_STATION_CODE, 
+    V_STATION_NAME, V_USER_EMAIL, C_INPUT_USER_ID, V_INPUT_USER_NAME, V_USER_TITLE, D_INPUT_DATE, 
+    V_USER_REMARK, N_INPUT_STATION_CODE, V_INPUT_STATION_NAME, N_ENABLED, N_ROLE_TYPE, 
+    N_RANK, N_TARGET_AMOUNT, N_PASS_PERCENT, C_POSITION_ID, IS_LOGIN_OA_PERMISSIONS, 
+    IS_LOGIN_BI_PERMISSIONS, IS_LOGIN_LECARLINK_PERMISSION, V_WX_OPEN_ID, V_HEADPIC_ALY, 
+    V_QRCODE_ALY, C_GROUP_ID, N_WORK_NUMBER, V_ID_CARD_NUMBER, D_HIRE_DATE, IS_LOGIN_ZT_ADMIN, 
+    N_PROVINCE_CODE, N_CITY_CODE, V_ADDRESS
+  </sql>
+  <sql id="New_Base_Column_List">
+    C_USER_ID, C_ORGANIZATION_ID, V_USER_NAME, N_USER_TYPE, V_PET_NAME, N_MOBILE_1,
+    N_MOBILE_2, V_TEL_1, V_TEL_2, N_STATUS, V_EMAIL, C_PASSWORD,
+    V_WX_OPEN_ID, V_WORK_WX_ACCOUNT, N_SEX, N_AUTHORITY, N_WORK_WX_ACTIVATION,
+    V_HEADPIC_ALY, N_WORK_ID, N_KINDOFWORK, V_FULLNAME_ZH, N_WORK_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="NewBaseResultMap">
+    select 
+    <include refid="New_Base_Column_List" />
+    from lcbase.t_zip_user
+    where C_USER_ID = #{userId,jdbcType=CHAR} and d_enddate>sysdate
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_LK_USER_INFO
+    where C_USER_ID = #{userId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.Users">
+    insert into T_LK_USER_INFO (C_USER_ID, C_USER_MOBILE, C_USER_PASSWORD, 
+      V_USER_NAME, C_CORP_ID, N_STATION_CODE, 
+      V_STATION_NAME, V_USER_EMAIL, C_INPUT_USER_ID, 
+      V_INPUT_USER_NAME, V_USER_TITLE, D_INPUT_DATE, 
+      V_USER_REMARK, N_INPUT_STATION_CODE, V_INPUT_STATION_NAME, 
+      N_ENABLED, N_ROLE_TYPE, N_RANK, 
+      N_TARGET_AMOUNT, N_PASS_PERCENT, C_POSITION_ID, 
+      IS_LOGIN_OA_PERMISSIONS, IS_LOGIN_BI_PERMISSIONS, 
+      IS_LOGIN_LECARLINK_PERMISSION, V_WX_OPEN_ID, V_HEADPIC_ALY, 
+      V_QRCODE_ALY, C_GROUP_ID, N_WORK_NUMBER, 
+      V_ID_CARD_NUMBER, D_HIRE_DATE, IS_LOGIN_ZT_ADMIN, 
+      N_PROVINCE_CODE, N_CITY_CODE, V_ADDRESS
+      )
+    values (#{userId,jdbcType=CHAR}, #{userMobile,jdbcType=CHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{corpId,jdbcType=CHAR}, #{stationCode,jdbcType=DECIMAL}, 
+      #{stationName,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{inputUserId,jdbcType=CHAR}, 
+      #{inputUserName,jdbcType=VARCHAR}, #{userTitle,jdbcType=VARCHAR}, #{inputDate,jdbcType=TIMESTAMP}, 
+      #{userRemark,jdbcType=VARCHAR}, #{inputStationCode,jdbcType=DECIMAL}, #{inputStationName,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=DECIMAL}, #{roleType,jdbcType=DECIMAL}, #{rank,jdbcType=DECIMAL}, 
+      #{targetAmount,jdbcType=DECIMAL}, #{passPercent,jdbcType=DECIMAL}, #{positionId,jdbcType=CHAR}, 
+      #{loginOaPermissions,jdbcType=DECIMAL}, #{loginBiPermissions,jdbcType=DECIMAL}, 
+      #{loginLecarlinkPermission,jdbcType=DECIMAL}, #{wxOpenId,jdbcType=VARCHAR}, #{headpicAly,jdbcType=VARCHAR}, 
+      #{qrcodeAly,jdbcType=VARCHAR}, #{groupId,jdbcType=CHAR}, #{workNumber,jdbcType=DECIMAL}, 
+      #{idCardNumber,jdbcType=CHAR}, #{hireDate,jdbcType=TIMESTAMP}, #{loginZtAdmin,jdbcType=DECIMAL}, 
+      #{provinceCode,jdbcType=DECIMAL}, #{cityCode,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.Users">
+    insert into T_LK_USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        C_USER_ID,
+      </if>
+      <if test="userMobile != null">
+        C_USER_MOBILE,
+      </if>
+      <if test="userPassword != null">
+        C_USER_PASSWORD,
+      </if>
+      <if test="userName != null">
+        V_USER_NAME,
+      </if>
+      <if test="corpId != null">
+        C_CORP_ID,
+      </if>
+      <if test="stationCode != null">
+        N_STATION_CODE,
+      </if>
+      <if test="stationName != null">
+        V_STATION_NAME,
+      </if>
+      <if test="userEmail != null">
+        V_USER_EMAIL,
+      </if>
+      <if test="inputUserId != null">
+        C_INPUT_USER_ID,
+      </if>
+      <if test="inputUserName != null">
+        V_INPUT_USER_NAME,
+      </if>
+      <if test="userTitle != null">
+        V_USER_TITLE,
+      </if>
+      <if test="inputDate != null">
+        D_INPUT_DATE,
+      </if>
+      <if test="userRemark != null">
+        V_USER_REMARK,
+      </if>
+      <if test="inputStationCode != null">
+        N_INPUT_STATION_CODE,
+      </if>
+      <if test="inputStationName != null">
+        V_INPUT_STATION_NAME,
+      </if>
+      <if test="enabled != null">
+        N_ENABLED,
+      </if>
+      <if test="roleType != null">
+        N_ROLE_TYPE,
+      </if>
+      <if test="rank != null">
+        N_RANK,
+      </if>
+      <if test="targetAmount != null">
+        N_TARGET_AMOUNT,
+      </if>
+      <if test="passPercent != null">
+        N_PASS_PERCENT,
+      </if>
+      <if test="positionId != null">
+        C_POSITION_ID,
+      </if>
+      <if test="loginOaPermissions != null">
+        IS_LOGIN_OA_PERMISSIONS,
+      </if>
+      <if test="loginBiPermissions != null">
+        IS_LOGIN_BI_PERMISSIONS,
+      </if>
+      <if test="loginLecarlinkPermission != null">
+        IS_LOGIN_LECARLINK_PERMISSION,
+      </if>
+      <if test="wxOpenId != null">
+        V_WX_OPEN_ID,
+      </if>
+      <if test="headpicAly != null">
+        V_HEADPIC_ALY,
+      </if>
+      <if test="qrcodeAly != null">
+        V_QRCODE_ALY,
+      </if>
+      <if test="groupId != null">
+        C_GROUP_ID,
+      </if>
+      <if test="workNumber != null">
+        N_WORK_NUMBER,
+      </if>
+      <if test="idCardNumber != null">
+        V_ID_CARD_NUMBER,
+      </if>
+      <if test="hireDate != null">
+        D_HIRE_DATE,
+      </if>
+      <if test="loginZtAdmin != null">
+        IS_LOGIN_ZT_ADMIN,
+      </if>
+      <if test="provinceCode != null">
+        N_PROVINCE_CODE,
+      </if>
+      <if test="cityCode != null">
+        N_CITY_CODE,
+      </if>
+      <if test="address != null">
+        V_ADDRESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="userMobile != null">
+        #{userMobile,jdbcType=CHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="corpId != null">
+        #{corpId,jdbcType=CHAR},
+      </if>
+      <if test="stationCode != null">
+        #{stationCode,jdbcType=DECIMAL},
+      </if>
+      <if test="stationName != null">
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="inputUserId != null">
+        #{inputUserId,jdbcType=CHAR},
+      </if>
+      <if test="inputUserName != null">
+        #{inputUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="userTitle != null">
+        #{userTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="inputDate != null">
+        #{inputDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userRemark != null">
+        #{userRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="inputStationCode != null">
+        #{inputStationCode,jdbcType=DECIMAL},
+      </if>
+      <if test="inputStationName != null">
+        #{inputStationName,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=DECIMAL},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=DECIMAL},
+      </if>
+      <if test="targetAmount != null">
+        #{targetAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="passPercent != null">
+        #{passPercent,jdbcType=DECIMAL},
+      </if>
+      <if test="positionId != null">
+        #{positionId,jdbcType=CHAR},
+      </if>
+      <if test="loginOaPermissions != null">
+        #{loginOaPermissions,jdbcType=DECIMAL},
+      </if>
+      <if test="loginBiPermissions != null">
+        #{loginBiPermissions,jdbcType=DECIMAL},
+      </if>
+      <if test="loginLecarlinkPermission != null">
+        #{loginLecarlinkPermission,jdbcType=DECIMAL},
+      </if>
+      <if test="wxOpenId != null">
+        #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="headpicAly != null">
+        #{headpicAly,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcodeAly != null">
+        #{qrcodeAly,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=CHAR},
+      </if>
+      <if test="workNumber != null">
+        #{workNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="idCardNumber != null">
+        #{idCardNumber,jdbcType=CHAR},
+      </if>
+      <if test="hireDate != null">
+        #{hireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginZtAdmin != null">
+        #{loginZtAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=DECIMAL},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.Users">
+    update T_LK_USER_INFO
+    <set>
+      <if test="userMobile != null">
+        C_USER_MOBILE = #{userMobile,jdbcType=CHAR},
+      </if>
+      <if test="userPassword != null">
+        C_USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        V_USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="corpId != null">
+        C_CORP_ID = #{corpId,jdbcType=CHAR},
+      </if>
+      <if test="stationCode != null">
+        N_STATION_CODE = #{stationCode,jdbcType=DECIMAL},
+      </if>
+      <if test="stationName != null">
+        V_STATION_NAME = #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        V_USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="inputUserId != null">
+        C_INPUT_USER_ID = #{inputUserId,jdbcType=CHAR},
+      </if>
+      <if test="inputUserName != null">
+        V_INPUT_USER_NAME = #{inputUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="userTitle != null">
+        V_USER_TITLE = #{userTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="inputDate != null">
+        D_INPUT_DATE = #{inputDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userRemark != null">
+        V_USER_REMARK = #{userRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="inputStationCode != null">
+        N_INPUT_STATION_CODE = #{inputStationCode,jdbcType=DECIMAL},
+      </if>
+      <if test="inputStationName != null">
+        V_INPUT_STATION_NAME = #{inputStationName,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        N_ENABLED = #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="roleType != null">
+        N_ROLE_TYPE = #{roleType,jdbcType=DECIMAL},
+      </if>
+      <if test="rank != null">
+        N_RANK = #{rank,jdbcType=DECIMAL},
+      </if>
+      <if test="targetAmount != null">
+        N_TARGET_AMOUNT = #{targetAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="passPercent != null">
+        N_PASS_PERCENT = #{passPercent,jdbcType=DECIMAL},
+      </if>
+      <if test="positionId != null">
+        C_POSITION_ID = #{positionId,jdbcType=CHAR},
+      </if>
+      <if test="loginOaPermissions != null">
+        IS_LOGIN_OA_PERMISSIONS = #{loginOaPermissions,jdbcType=DECIMAL},
+      </if>
+      <if test="loginBiPermissions != null">
+        IS_LOGIN_BI_PERMISSIONS = #{loginBiPermissions,jdbcType=DECIMAL},
+      </if>
+      <if test="loginLecarlinkPermission != null">
+        IS_LOGIN_LECARLINK_PERMISSION = #{loginLecarlinkPermission,jdbcType=DECIMAL},
+      </if>
+      <if test="wxOpenId != null">
+        V_WX_OPEN_ID = #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="headpicAly != null">
+        V_HEADPIC_ALY = #{headpicAly,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcodeAly != null">
+        V_QRCODE_ALY = #{qrcodeAly,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        C_GROUP_ID = #{groupId,jdbcType=CHAR},
+      </if>
+      <if test="workNumber != null">
+        N_WORK_NUMBER = #{workNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="idCardNumber != null">
+        V_ID_CARD_NUMBER = #{idCardNumber,jdbcType=CHAR},
+      </if>
+      <if test="hireDate != null">
+        D_HIRE_DATE = #{hireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginZtAdmin != null">
+        IS_LOGIN_ZT_ADMIN = #{loginZtAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="provinceCode != null">
+        N_PROVINCE_CODE = #{provinceCode,jdbcType=DECIMAL},
+      </if>
+      <if test="cityCode != null">
+        N_CITY_CODE = #{cityCode,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null">
+        V_ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where C_USER_ID = #{userId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.Users">
+    update T_LK_USER_INFO
+    set C_USER_MOBILE = #{userMobile,jdbcType=CHAR},
+      C_USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+      V_USER_NAME = #{userName,jdbcType=VARCHAR},
+      C_CORP_ID = #{corpId,jdbcType=CHAR},
+      N_STATION_CODE = #{stationCode,jdbcType=DECIMAL},
+      V_STATION_NAME = #{stationName,jdbcType=VARCHAR},
+      V_USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      C_INPUT_USER_ID = #{inputUserId,jdbcType=CHAR},
+      V_INPUT_USER_NAME = #{inputUserName,jdbcType=VARCHAR},
+      V_USER_TITLE = #{userTitle,jdbcType=VARCHAR},
+      D_INPUT_DATE = #{inputDate,jdbcType=TIMESTAMP},
+      V_USER_REMARK = #{userRemark,jdbcType=VARCHAR},
+      N_INPUT_STATION_CODE = #{inputStationCode,jdbcType=DECIMAL},
+      V_INPUT_STATION_NAME = #{inputStationName,jdbcType=VARCHAR},
+      N_ENABLED = #{enabled,jdbcType=DECIMAL},
+      N_ROLE_TYPE = #{roleType,jdbcType=DECIMAL},
+      N_RANK = #{rank,jdbcType=DECIMAL},
+      N_TARGET_AMOUNT = #{targetAmount,jdbcType=DECIMAL},
+      N_PASS_PERCENT = #{passPercent,jdbcType=DECIMAL},
+      C_POSITION_ID = #{positionId,jdbcType=CHAR},
+      IS_LOGIN_OA_PERMISSIONS = #{loginOaPermissions,jdbcType=DECIMAL},
+      IS_LOGIN_BI_PERMISSIONS = #{loginBiPermissions,jdbcType=DECIMAL},
+      IS_LOGIN_LECARLINK_PERMISSION = #{loginLecarlinkPermission,jdbcType=DECIMAL},
+      V_WX_OPEN_ID = #{wxOpenId,jdbcType=VARCHAR},
+      V_HEADPIC_ALY = #{headpicAly,jdbcType=VARCHAR},
+      V_QRCODE_ALY = #{qrcodeAly,jdbcType=VARCHAR},
+      C_GROUP_ID = #{groupId,jdbcType=CHAR},
+      N_WORK_NUMBER = #{workNumber,jdbcType=DECIMAL},
+      V_ID_CARD_NUMBER = #{idCardNumber,jdbcType=CHAR},
+      D_HIRE_DATE = #{hireDate,jdbcType=TIMESTAMP},
+      IS_LOGIN_ZT_ADMIN = #{loginZtAdmin,jdbcType=DECIMAL},
+      N_PROVINCE_CODE = #{provinceCode,jdbcType=DECIMAL},
+      N_CITY_CODE = #{cityCode,jdbcType=DECIMAL},
+      V_ADDRESS = #{address,jdbcType=VARCHAR}
+    where C_USER_ID = #{userId,jdbcType=CHAR}
+  </update>
+</mapper>

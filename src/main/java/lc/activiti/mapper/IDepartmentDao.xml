@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.IDepartmentDao">
+	<select id="isDepartmentLeader" resultType="java.lang.Boolean">
+		select decode(count(1),0,0,1) from lcbase.t_zip_organization DT WHERE DT.C_ORGANIZATION_OWNER=#{userId}
+	</select>
+	<select id="userIsExistDepartment" resultType="java.lang.Boolean">
+	select decode(count(1),0,0,1) from lcbase.t_zip_user u WHERE u.c_user_id=#{userId} and u.c_organization_id is not null
+	</select>
+</mapper>

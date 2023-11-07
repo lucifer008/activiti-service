@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IBrowsePermissionBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.BrowsePermission">
+    <id column="C_BROWSE_PERMISSION_ID" jdbcType="CHAR" property="browsePermissionId" />
+    <result column="C_USER_ID" jdbcType="CHAR" property="userId" />
+    <result column="D_START" jdbcType="TIMESTAMP" property="start" />
+    <result column="D_END" jdbcType="TIMESTAMP" property="end" />
+    <result column="N_STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="C_CONTRACT_ID" jdbcType="CHAR" property="contractId" />
+    <result column="V_REASON" jdbcType="OTHER" property="reason" />
+    <result column="D_INPUT" jdbcType="TIMESTAMP" property="input" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_BROWSE_PERMISSION_ID, C_USER_ID, D_START, D_END, N_STATUS, C_CONTRACT_ID, V_REASON, 
+    D_INPUT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HT_BROWSE_PERMISSION
+    where C_BROWSE_PERMISSION_ID = #{browsePermissionId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HT_BROWSE_PERMISSION
+    where C_BROWSE_PERMISSION_ID = #{browsePermissionId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.BrowsePermission">
+    insert into HT_BROWSE_PERMISSION (C_BROWSE_PERMISSION_ID, C_USER_ID, D_START, 
+      D_END, N_STATUS, C_CONTRACT_ID, 
+      V_REASON, D_INPUT)
+    values (#{browsePermissionId,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, #{start,jdbcType=TIMESTAMP}, 
+      #{end,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL}, #{contractId,jdbcType=CHAR}, 
+      #{reason,jdbcType=OTHER}, #{input,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.BrowsePermission">
+    insert into HT_BROWSE_PERMISSION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="browsePermissionId != null">
+        C_BROWSE_PERMISSION_ID,
+      </if>
+      <if test="userId != null">
+        C_USER_ID,
+      </if>
+      <if test="start != null">
+        D_START,
+      </if>
+      <if test="end != null">
+        D_END,
+      </if>
+      <if test="status != null">
+        N_STATUS,
+      </if>
+      <if test="contractId != null">
+        C_CONTRACT_ID,
+      </if>
+      <if test="reason != null">
+        V_REASON,
+      </if>
+      <if test="input != null">
+        D_INPUT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="browsePermissionId != null">
+        #{browsePermissionId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="start != null">
+        #{start,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end != null">
+        #{end,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="contractId != null">
+        #{contractId,jdbcType=CHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=OTHER},
+      </if>
+      <if test="input != null">
+        #{input,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.BrowsePermission">
+    update HT_BROWSE_PERMISSION
+    <set>
+      <if test="userId != null">
+        C_USER_ID = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="start != null">
+        D_START = #{start,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end != null">
+        D_END = #{end,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        N_STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="contractId != null">
+        C_CONTRACT_ID = #{contractId,jdbcType=CHAR},
+      </if>
+      <if test="reason != null">
+        V_REASON = #{reason,jdbcType=OTHER},
+      </if>
+      <if test="input != null">
+        D_INPUT = #{input,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where C_BROWSE_PERMISSION_ID = #{browsePermissionId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.BrowsePermission">
+    update HT_BROWSE_PERMISSION
+    set C_USER_ID = #{userId,jdbcType=CHAR},
+      D_START = #{start,jdbcType=TIMESTAMP},
+      D_END = #{end,jdbcType=TIMESTAMP},
+      N_STATUS = #{status,jdbcType=DECIMAL},
+      C_CONTRACT_ID = #{contractId,jdbcType=CHAR},
+      V_REASON = #{reason,jdbcType=OTHER},
+      D_INPUT = #{input,jdbcType=TIMESTAMP}
+    where C_BROWSE_PERMISSION_ID = #{browsePermissionId,jdbcType=CHAR}
+  </update>
+</mapper>

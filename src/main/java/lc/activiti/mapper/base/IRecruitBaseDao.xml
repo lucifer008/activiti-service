@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IRecruitBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.RecruitBase">
+    <id column="C_RECRUIT_ID" jdbcType="CHAR" property="recruitId" />
+    <result column="C_DEP_ID1" jdbcType="CHAR" property="depId1" />
+    <result column="C_DEP_ID2" jdbcType="CHAR" property="depId2" />
+    <result column="C_DEP_ID3" jdbcType="CHAR" property="depId3" />
+    <result column="C_DEP_ID4" jdbcType="CHAR" property="depId4" />
+    <result column="C_DEP_ID5" jdbcType="CHAR" property="depId5" />
+    <result column="C_DEP_ID6" jdbcType="CHAR" property="depId6" />
+    <result column="C_DEP_ID7" jdbcType="CHAR" property="depId7" />
+    <result column="C_POSITION_ID" jdbcType="CHAR" property="positionId" />
+    <result column="N_RANK" jdbcType="VARCHAR" property="rank" />
+    <result column="N_APPROVAL_STATUS" jdbcType="DECIMAL" property="approvalStatus" />
+    <result column="N_INTERVIEW_STATUS" jdbcType="DECIMAL" property="interviewStatus" />
+    <result column="N_WORK_YEAR" jdbcType="VARCHAR" property="workYear" />
+    <result column="N_NUMS" jdbcType="DECIMAL" property="nums" />
+    <result column="N_INTERVIEW" jdbcType="DECIMAL" property="interview" />
+    <result column="C_PRELIMINARY_TEST_USER_ID" jdbcType="CHAR" property="preliminaryTestUserId" />
+    <result column="C_REEXAMINE_USER_ID" jdbcType="CHAR" property="reexamineUserId" />
+    <result column="V_POSITION_RESPONSIBILITY" jdbcType="VARCHAR" property="positionResponsibility" />
+    <result column="V_JOB_REQUIREMENTS" jdbcType="VARCHAR" property="jobRequirements" />
+    <result column="D_EXPECT_SUCESS" jdbcType="TIMESTAMP" property="expectSucess" />
+    <result column="V_SALARY" jdbcType="VARCHAR" property="salary" />
+    <result column="C_REJECT_USER_ID" jdbcType="CHAR" property="rejectUserId" />
+    <result column="D_REJECT" jdbcType="TIMESTAMP" property="reject" />
+    <result column="V_REJECT_MEMO" jdbcType="VARCHAR" property="rejectMemo" />
+    <result column="D_INPUT" jdbcType="TIMESTAMP" property="input" />
+    <result column="D_INPUT_USER_ID" jdbcType="CHAR" property="inputUserId" />
+    <result column="D_UPDATE" jdbcType="TIMESTAMP" property="update" />
+    <result column="D_UPDATE_USER_ID" jdbcType="CHAR" property="updateUserId" />
+    <result column="N_DELETED" jdbcType="DECIMAL" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_RECRUIT_ID, C_DEP_ID1, C_DEP_ID2, C_DEP_ID3, C_DEP_ID4, C_DEP_ID5, C_DEP_ID6, C_DEP_ID7, 
+    C_POSITION_ID, N_RANK, N_APPROVAL_STATUS, N_INTERVIEW_STATUS, N_WORK_YEAR, N_NUMS, 
+    N_INTERVIEW, C_PRELIMINARY_TEST_USER_ID, C_REEXAMINE_USER_ID, V_POSITION_RESPONSIBILITY, 
+    V_JOB_REQUIREMENTS, D_EXPECT_SUCESS, V_SALARY, C_REJECT_USER_ID, D_REJECT, V_REJECT_MEMO, 
+    D_INPUT, D_INPUT_USER_ID, D_UPDATE, D_UPDATE_USER_ID, N_DELETED
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OA_RECRUIT
+    where C_RECRUIT_ID = #{recruitId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from OA_RECRUIT
+    where C_RECRUIT_ID = #{recruitId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.RecruitBase">
+    insert into OA_RECRUIT (C_RECRUIT_ID, C_DEP_ID1, C_DEP_ID2, 
+      C_DEP_ID3, C_DEP_ID4, C_DEP_ID5, C_DEP_ID6, 
+      C_DEP_ID7, C_POSITION_ID, N_RANK, 
+      N_APPROVAL_STATUS, N_INTERVIEW_STATUS, N_WORK_YEAR, 
+      N_NUMS, N_INTERVIEW, C_PRELIMINARY_TEST_USER_ID, 
+      C_REEXAMINE_USER_ID, V_POSITION_RESPONSIBILITY, V_JOB_REQUIREMENTS, 
+      D_EXPECT_SUCESS, V_SALARY, C_REJECT_USER_ID, 
+      D_REJECT, V_REJECT_MEMO, D_INPUT, 
+      D_INPUT_USER_ID, D_UPDATE, D_UPDATE_USER_ID, 
+      N_DELETED)
+    values (#{recruitId,jdbcType=CHAR}, #{depId1,jdbcType=CHAR}, #{depId2,jdbcType=CHAR}, 
+      #{depId3,jdbcType=CHAR}, #{depId4,jdbcType=CHAR}, #{depId5,jdbcType=CHAR}, #{depId6,jdbcType=CHAR}, 
+      #{depId7,jdbcType=CHAR}, #{positionId,jdbcType=CHAR}, #{rank,jdbcType=VARCHAR}, 
+      #{approvalStatus,jdbcType=DECIMAL}, #{interviewStatus,jdbcType=DECIMAL}, #{workYear,jdbcType=VARCHAR}, 
+      #{nums,jdbcType=DECIMAL}, #{interview,jdbcType=DECIMAL}, #{preliminaryTestUserId,jdbcType=CHAR}, 
+      #{reexamineUserId,jdbcType=CHAR}, #{positionResponsibility,jdbcType=VARCHAR}, #{jobRequirements,jdbcType=VARCHAR}, 
+      #{expectSucess,jdbcType=TIMESTAMP}, #{salary,jdbcType=VARCHAR}, #{rejectUserId,jdbcType=CHAR}, 
+      #{reject,jdbcType=TIMESTAMP}, #{rejectMemo,jdbcType=VARCHAR}, #{input,jdbcType=TIMESTAMP}, 
+      #{inputUserId,jdbcType=CHAR}, #{update,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=CHAR}, 
+      #{deleted,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.RecruitBase">
+    insert into OA_RECRUIT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recruitId != null">
+        C_RECRUIT_ID,
+      </if>
+      <if test="depId1 != null">
+        C_DEP_ID1,
+      </if>
+      <if test="depId2 != null">
+        C_DEP_ID2,
+      </if>
+      <if test="depId3 != null">
+        C_DEP_ID3,
+      </if>
+      <if test="depId4 != null">
+        C_DEP_ID4,
+      </if>
+      <if test="depId5 != null">
+        C_DEP_ID5,
+      </if>
+      <if test="depId6 != null">
+        C_DEP_ID6,
+      </if>
+      <if test="depId7 != null">
+        C_DEP_ID7,
+      </if>
+      <if test="positionId != null">
+        C_POSITION_ID,
+      </if>
+      <if test="rank != null">
+        N_RANK,
+      </if>
+      <if test="approvalStatus != null">
+        N_APPROVAL_STATUS,
+      </if>
+      <if test="interviewStatus != null">
+        N_INTERVIEW_STATUS,
+      </if>
+      <if test="workYear != null">
+        N_WORK_YEAR,
+      </if>
+      <if test="nums != null">
+        N_NUMS,
+      </if>
+      <if test="interview != null">
+        N_INTERVIEW,
+      </if>
+      <if test="preliminaryTestUserId != null">
+        C_PRELIMINARY_TEST_USER_ID,
+      </if>
+      <if test="reexamineUserId != null">
+        C_REEXAMINE_USER_ID,
+      </if>
+      <if test="positionResponsibility != null">
+        V_POSITION_RESPONSIBILITY,
+      </if>
+      <if test="jobRequirements != null">
+        V_JOB_REQUIREMENTS,
+      </if>
+      <if test="expectSucess != null">
+        D_EXPECT_SUCESS,
+      </if>
+      <if test="salary != null">
+        V_SALARY,
+      </if>
+      <if test="rejectUserId != null">
+        C_REJECT_USER_ID,
+      </if>
+      <if test="reject != null">
+        D_REJECT,
+      </if>
+      <if test="rejectMemo != null">
+        V_REJECT_MEMO,
+      </if>
+      <if test="input != null">
+        D_INPUT,
+      </if>
+      <if test="inputUserId != null">
+        D_INPUT_USER_ID,
+      </if>
+      <if test="update != null">
+        D_UPDATE,
+      </if>
+      <if test="updateUserId != null">
+        D_UPDATE_USER_ID,
+      </if>
+      <if test="deleted != null">
+        N_DELETED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recruitId != null">
+        #{recruitId,jdbcType=CHAR},
+      </if>
+      <if test="depId1 != null">
+        #{depId1,jdbcType=CHAR},
+      </if>
+      <if test="depId2 != null">
+        #{depId2,jdbcType=CHAR},
+      </if>
+      <if test="depId3 != null">
+        #{depId3,jdbcType=CHAR},
+      </if>
+      <if test="depId4 != null">
+        #{depId4,jdbcType=CHAR},
+      </if>
+      <if test="depId5 != null">
+        #{depId5,jdbcType=CHAR},
+      </if>
+      <if test="depId6 != null">
+        #{depId6,jdbcType=CHAR},
+      </if>
+      <if test="depId7 != null">
+        #{depId7,jdbcType=CHAR},
+      </if>
+      <if test="positionId != null">
+        #{positionId,jdbcType=CHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalStatus != null">
+        #{approvalStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="interviewStatus != null">
+        #{interviewStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="workYear != null">
+        #{workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="nums != null">
+        #{nums,jdbcType=DECIMAL},
+      </if>
+      <if test="interview != null">
+        #{interview,jdbcType=DECIMAL},
+      </if>
+      <if test="preliminaryTestUserId != null">
+        #{preliminaryTestUserId,jdbcType=CHAR},
+      </if>
+      <if test="reexamineUserId != null">
+        #{reexamineUserId,jdbcType=CHAR},
+      </if>
+      <if test="positionResponsibility != null">
+        #{positionResponsibility,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirements != null">
+        #{jobRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="expectSucess != null">
+        #{expectSucess,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectUserId != null">
+        #{rejectUserId,jdbcType=CHAR},
+      </if>
+      <if test="reject != null">
+        #{reject,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rejectMemo != null">
+        #{rejectMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="input != null">
+        #{input,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inputUserId != null">
+        #{inputUserId,jdbcType=CHAR},
+      </if>
+      <if test="update != null">
+        #{update,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.RecruitBase">
+    update OA_RECRUIT
+    <set>
+      <if test="depId1 != null">
+        C_DEP_ID1 = #{depId1,jdbcType=CHAR},
+      </if>
+      <if test="depId2 != null">
+        C_DEP_ID2 = #{depId2,jdbcType=CHAR},
+      </if>
+      <if test="depId3 != null">
+        C_DEP_ID3 = #{depId3,jdbcType=CHAR},
+      </if>
+      <if test="depId4 != null">
+        C_DEP_ID4 = #{depId4,jdbcType=CHAR},
+      </if>
+      <if test="depId5 != null">
+        C_DEP_ID5 = #{depId5,jdbcType=CHAR},
+      </if>
+      <if test="depId6 != null">
+        C_DEP_ID6 = #{depId6,jdbcType=CHAR},
+      </if>
+      <if test="depId7 != null">
+        C_DEP_ID7 = #{depId7,jdbcType=CHAR},
+      </if>
+      <if test="positionId != null">
+        C_POSITION_ID = #{positionId,jdbcType=CHAR},
+      </if>
+      <if test="rank != null">
+        N_RANK = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalStatus != null">
+        N_APPROVAL_STATUS = #{approvalStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="interviewStatus != null">
+        N_INTERVIEW_STATUS = #{interviewStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="workYear != null">
+        N_WORK_YEAR = #{workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="nums != null">
+        N_NUMS = #{nums,jdbcType=DECIMAL},
+      </if>
+      <if test="interview != null">
+        N_INTERVIEW = #{interview,jdbcType=DECIMAL},
+      </if>
+      <if test="preliminaryTestUserId != null">
+        C_PRELIMINARY_TEST_USER_ID = #{preliminaryTestUserId,jdbcType=CHAR},
+      </if>
+      <if test="reexamineUserId != null">
+        C_REEXAMINE_USER_ID = #{reexamineUserId,jdbcType=CHAR},
+      </if>
+      <if test="positionResponsibility != null">
+        V_POSITION_RESPONSIBILITY = #{positionResponsibility,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirements != null">
+        V_JOB_REQUIREMENTS = #{jobRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="expectSucess != null">
+        D_EXPECT_SUCESS = #{expectSucess,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salary != null">
+        V_SALARY = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectUserId != null">
+        C_REJECT_USER_ID = #{rejectUserId,jdbcType=CHAR},
+      </if>
+      <if test="reject != null">
+        D_REJECT = #{reject,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rejectMemo != null">
+        V_REJECT_MEMO = #{rejectMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="input != null">
+        D_INPUT = #{input,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inputUserId != null">
+        D_INPUT_USER_ID = #{inputUserId,jdbcType=CHAR},
+      </if>
+      <if test="update != null">
+        D_UPDATE = #{update,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        D_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        N_DELETED = #{deleted,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where C_RECRUIT_ID = #{recruitId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.RecruitBase">
+    update OA_RECRUIT
+    set C_DEP_ID1 = #{depId1,jdbcType=CHAR},
+      C_DEP_ID2 = #{depId2,jdbcType=CHAR},
+      C_DEP_ID3 = #{depId3,jdbcType=CHAR},
+      C_DEP_ID4 = #{depId4,jdbcType=CHAR},
+      C_DEP_ID5 = #{depId5,jdbcType=CHAR},
+      C_DEP_ID6 = #{depId6,jdbcType=CHAR},
+      C_DEP_ID7 = #{depId7,jdbcType=CHAR},
+      C_POSITION_ID = #{positionId,jdbcType=CHAR},
+      N_RANK = #{rank,jdbcType=VARCHAR},
+      N_APPROVAL_STATUS = #{approvalStatus,jdbcType=DECIMAL},
+      N_INTERVIEW_STATUS = #{interviewStatus,jdbcType=DECIMAL},
+      N_WORK_YEAR = #{workYear,jdbcType=VARCHAR},
+      N_NUMS = #{nums,jdbcType=DECIMAL},
+      N_INTERVIEW = #{interview,jdbcType=DECIMAL},
+      C_PRELIMINARY_TEST_USER_ID = #{preliminaryTestUserId,jdbcType=CHAR},
+      C_REEXAMINE_USER_ID = #{reexamineUserId,jdbcType=CHAR},
+      V_POSITION_RESPONSIBILITY = #{positionResponsibility,jdbcType=VARCHAR},
+      V_JOB_REQUIREMENTS = #{jobRequirements,jdbcType=VARCHAR},
+      D_EXPECT_SUCESS = #{expectSucess,jdbcType=TIMESTAMP},
+      V_SALARY = #{salary,jdbcType=VARCHAR},
+      C_REJECT_USER_ID = #{rejectUserId,jdbcType=CHAR},
+      D_REJECT = #{reject,jdbcType=TIMESTAMP},
+      V_REJECT_MEMO = #{rejectMemo,jdbcType=VARCHAR},
+      D_INPUT = #{input,jdbcType=TIMESTAMP},
+      D_INPUT_USER_ID = #{inputUserId,jdbcType=CHAR},
+      D_UPDATE = #{update,jdbcType=TIMESTAMP},
+      D_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      N_DELETED = #{deleted,jdbcType=DECIMAL}
+    where C_RECRUIT_ID = #{recruitId,jdbcType=CHAR}
+  </update>
+</mapper>

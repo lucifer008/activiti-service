@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IApprovalSealBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.ApprovalSealBase">
+    <id column="C_APPROVAL_SEAL_ID" jdbcType="CHAR" property="approvalSealId" />
+    <result column="N_SEAL_STATUS" jdbcType="DECIMAL" property="sealStatus" />
+    <result column="N_APPROVAL_TYPE" jdbcType="DECIMAL" property="approvalType" />
+    <result column="C_APPROVAL_USER_ID" jdbcType="CHAR" property="approvalUserId" />
+    <result column="D_APPROVAL_DATE" jdbcType="TIMESTAMP" property="approvalDate" />
+    <result column="V_SIGN_CONTENT" jdbcType="VARCHAR" property="signContent" />
+    <result column="V_SING_UNIT" jdbcType="VARCHAR" property="singUnit" />
+    <result column="V_CONTRACT_NO" jdbcType="VARCHAR" property="contractNo" />
+    <result column="N_AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="N_STAMP_TYPE" jdbcType="DECIMAL" property="stampType" />
+    <result column="N_STAMP_SUBJECT" jdbcType="DECIMAL" property="stampSubject" />
+    <result column="D_UPDATE" jdbcType="TIMESTAMP" property="update" />
+    <result column="C_UPDATE_USER_ID" jdbcType="CHAR" property="updateUserId" />
+    <result column="V_SEAL_APPLY_NO" jdbcType="VARCHAR" property="sealApplyNo" />
+    <result column="C_APPROVAL_DEP_ID" jdbcType="CHAR" property="approvalDepId" />
+    <result column="C_REJECT_USER_ID" jdbcType="CHAR" property="rejectUserId" />
+    <result column="D_REJECT_DATE" jdbcType="TIMESTAMP" property="rejectDate" />
+    <result column="V_REJECT_MEMO" jdbcType="VARCHAR" property="rejectMemo" />
+    <result column="V_APPLY_MEMO" jdbcType="VARCHAR" property="applyMemo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_APPROVAL_SEAL_ID, N_SEAL_STATUS, N_APPROVAL_TYPE, C_APPROVAL_USER_ID, D_APPROVAL_DATE, 
+    V_SIGN_CONTENT, V_SING_UNIT, V_CONTRACT_NO, N_AMOUNT, N_STAMP_TYPE, N_STAMP_SUBJECT, 
+    D_UPDATE, C_UPDATE_USER_ID, V_SEAL_APPLY_NO, C_APPROVAL_DEP_ID, C_REJECT_USER_ID, 
+    D_REJECT_DATE, V_REJECT_MEMO, V_APPLY_MEMO
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_APPROVAL_SEAL
+    where C_APPROVAL_SEAL_ID = #{approvalSealId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_APPROVAL_SEAL
+    where C_APPROVAL_SEAL_ID = #{approvalSealId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.ApprovalSealBase">
+    insert into T_APPROVAL_SEAL (C_APPROVAL_SEAL_ID, N_SEAL_STATUS, N_APPROVAL_TYPE, 
+      C_APPROVAL_USER_ID, D_APPROVAL_DATE, V_SIGN_CONTENT, 
+      V_SING_UNIT, V_CONTRACT_NO, N_AMOUNT, 
+      N_STAMP_TYPE, N_STAMP_SUBJECT, D_UPDATE, 
+      C_UPDATE_USER_ID, V_SEAL_APPLY_NO, C_APPROVAL_DEP_ID, 
+      C_REJECT_USER_ID, D_REJECT_DATE, V_REJECT_MEMO, 
+      V_APPLY_MEMO)
+    values (#{approvalSealId,jdbcType=CHAR}, #{sealStatus,jdbcType=DECIMAL}, #{approvalType,jdbcType=DECIMAL}, 
+      #{approvalUserId,jdbcType=CHAR}, #{approvalDate,jdbcType=TIMESTAMP}, #{signContent,jdbcType=VARCHAR}, 
+      #{singUnit,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{stampType,jdbcType=DECIMAL}, #{stampSubject,jdbcType=DECIMAL}, #{update,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=CHAR}, #{sealApplyNo,jdbcType=VARCHAR}, #{approvalDepId,jdbcType=CHAR}, 
+      #{rejectUserId,jdbcType=CHAR}, #{rejectDate,jdbcType=TIMESTAMP}, #{rejectMemo,jdbcType=VARCHAR}, 
+      #{applyMemo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.ApprovalSealBase">
+    insert into T_APPROVAL_SEAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="approvalSealId != null">
+        C_APPROVAL_SEAL_ID,
+      </if>
+      <if test="sealStatus != null">
+        N_SEAL_STATUS,
+      </if>
+      <if test="approvalType != null">
+        N_APPROVAL_TYPE,
+      </if>
+      <if test="approvalUserId != null">
+        C_APPROVAL_USER_ID,
+      </if>
+      <if test="approvalDate != null">
+        D_APPROVAL_DATE,
+      </if>
+      <if test="signContent != null">
+        V_SIGN_CONTENT,
+      </if>
+      <if test="singUnit != null">
+        V_SING_UNIT,
+      </if>
+      <if test="contractNo != null">
+        V_CONTRACT_NO,
+      </if>
+      <if test="amount != null">
+        N_AMOUNT,
+      </if>
+      <if test="stampType != null">
+        N_STAMP_TYPE,
+      </if>
+      <if test="stampSubject != null">
+        N_STAMP_SUBJECT,
+      </if>
+      <if test="update != null">
+        D_UPDATE,
+      </if>
+      <if test="updateUserId != null">
+        C_UPDATE_USER_ID,
+      </if>
+      <if test="sealApplyNo != null">
+        V_SEAL_APPLY_NO,
+      </if>
+      <if test="approvalDepId != null">
+        C_APPROVAL_DEP_ID,
+      </if>
+      <if test="rejectUserId != null">
+        C_REJECT_USER_ID,
+      </if>
+      <if test="rejectDate != null">
+        D_REJECT_DATE,
+      </if>
+      <if test="rejectMemo != null">
+        V_REJECT_MEMO,
+      </if>
+      <if test="applyMemo != null">
+        V_APPLY_MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="approvalSealId != null">
+        #{approvalSealId,jdbcType=CHAR},
+      </if>
+      <if test="sealStatus != null">
+        #{sealStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="approvalType != null">
+        #{approvalType,jdbcType=DECIMAL},
+      </if>
+      <if test="approvalUserId != null">
+        #{approvalUserId,jdbcType=CHAR},
+      </if>
+      <if test="approvalDate != null">
+        #{approvalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signContent != null">
+        #{signContent,jdbcType=VARCHAR},
+      </if>
+      <if test="singUnit != null">
+        #{singUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null">
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="stampType != null">
+        #{stampType,jdbcType=DECIMAL},
+      </if>
+      <if test="stampSubject != null">
+        #{stampSubject,jdbcType=DECIMAL},
+      </if>
+      <if test="update != null">
+        #{update,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="sealApplyNo != null">
+        #{sealApplyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalDepId != null">
+        #{approvalDepId,jdbcType=CHAR},
+      </if>
+      <if test="rejectUserId != null">
+        #{rejectUserId,jdbcType=CHAR},
+      </if>
+      <if test="rejectDate != null">
+        #{rejectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rejectMemo != null">
+        #{rejectMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyMemo != null">
+        #{applyMemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.ApprovalSealBase">
+    update T_APPROVAL_SEAL
+    <set>
+      <if test="sealStatus != null">
+        N_SEAL_STATUS = #{sealStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="approvalType != null">
+        N_APPROVAL_TYPE = #{approvalType,jdbcType=DECIMAL},
+      </if>
+      <if test="approvalUserId != null">
+        C_APPROVAL_USER_ID = #{approvalUserId,jdbcType=CHAR},
+      </if>
+      <if test="approvalDate != null">
+        D_APPROVAL_DATE = #{approvalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signContent != null">
+        V_SIGN_CONTENT = #{signContent,jdbcType=VARCHAR},
+      </if>
+      <if test="singUnit != null">
+        V_SING_UNIT = #{singUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null">
+        V_CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        N_AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="stampType != null">
+        N_STAMP_TYPE = #{stampType,jdbcType=DECIMAL},
+      </if>
+      <if test="stampSubject != null">
+        N_STAMP_SUBJECT = #{stampSubject,jdbcType=DECIMAL},
+      </if>
+      <if test="update != null">
+        D_UPDATE = #{update,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        C_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="sealApplyNo != null">
+        V_SEAL_APPLY_NO = #{sealApplyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalDepId != null">
+        C_APPROVAL_DEP_ID = #{approvalDepId,jdbcType=CHAR},
+      </if>
+      <if test="rejectUserId != null">
+        C_REJECT_USER_ID = #{rejectUserId,jdbcType=CHAR},
+      </if>
+      <if test="rejectDate != null">
+        D_REJECT_DATE = #{rejectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rejectMemo != null">
+        V_REJECT_MEMO = #{rejectMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyMemo != null">
+        V_APPLY_MEMO = #{applyMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where C_APPROVAL_SEAL_ID = #{approvalSealId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.ApprovalSealBase">
+    update T_APPROVAL_SEAL
+    set N_SEAL_STATUS = #{sealStatus,jdbcType=DECIMAL},
+      N_APPROVAL_TYPE = #{approvalType,jdbcType=DECIMAL},
+      C_APPROVAL_USER_ID = #{approvalUserId,jdbcType=CHAR},
+      D_APPROVAL_DATE = #{approvalDate,jdbcType=TIMESTAMP},
+      V_SIGN_CONTENT = #{signContent,jdbcType=VARCHAR},
+      V_SING_UNIT = #{singUnit,jdbcType=VARCHAR},
+      V_CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
+      N_AMOUNT = #{amount,jdbcType=DECIMAL},
+      N_STAMP_TYPE = #{stampType,jdbcType=DECIMAL},
+      N_STAMP_SUBJECT = #{stampSubject,jdbcType=DECIMAL},
+      D_UPDATE = #{update,jdbcType=TIMESTAMP},
+      C_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      V_SEAL_APPLY_NO = #{sealApplyNo,jdbcType=VARCHAR},
+      C_APPROVAL_DEP_ID = #{approvalDepId,jdbcType=CHAR},
+      C_REJECT_USER_ID = #{rejectUserId,jdbcType=CHAR},
+      D_REJECT_DATE = #{rejectDate,jdbcType=TIMESTAMP},
+      V_REJECT_MEMO = #{rejectMemo,jdbcType=VARCHAR},
+      V_APPLY_MEMO = #{applyMemo,jdbcType=VARCHAR}
+    where C_APPROVAL_SEAL_ID = #{approvalSealId,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IContractCounterSignBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.ContractCounterSign">
+    <id column="C_CONTRACT_COUNTERSIGN_ID" jdbcType="CHAR" property="contractCountersignId" />
+    <result column="C_CONTRACT_ID" jdbcType="CHAR" property="contractId" />
+    <result column="C_DEPARTMENT_ID" jdbcType="CHAR" property="departmentId" />
+    <result column="C_USER_ID" jdbcType="CHAR" property="userId" />
+    <result column="N_SIGN_TYPE" jdbcType="DECIMAL" property="signType" />
+    <result column="V_SIGN_SUGGESTION" jdbcType="VARCHAR" property="signSuggestion" />
+    <result column="D_SIGN_DATE" jdbcType="TIMESTAMP" property="signDate" />
+    <result column="D_UPDATE" jdbcType="TIMESTAMP" property="update" />
+    <result column="D_UPDATE_USER_ID" jdbcType="CHAR" property="updateUserId" />
+    <result column="N_DELETED" jdbcType="DECIMAL" property="deleted" />
+    <result column="D_DELETE_DATE" jdbcType="TIMESTAMP" property="deleteDate" />
+    <result column="N_IS_WITHDRAW" jdbcType="DECIMAL" property="isWithdraw" />
+    <result column="N_BATCH_NO" jdbcType="DECIMAL" property="batchNo" />
+    <result column="V_ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_CONTRACT_COUNTERSIGN_ID, C_CONTRACT_ID, C_DEPARTMENT_ID, C_USER_ID, N_SIGN_TYPE,
+    V_SIGN_SUGGESTION, D_SIGN_DATE, D_UPDATE, D_UPDATE_USER_ID, N_DELETED, D_DELETE_DATE,
+    N_IS_WITHDRAW, N_BATCH_NO,V_ROLE_NAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from HT_CONTRACT_COUNTERSIGN
+    where C_CONTRACT_COUNTERSIGN_ID = #{contractCountersignId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HT_CONTRACT_COUNTERSIGN
+    where C_CONTRACT_COUNTERSIGN_ID = #{contractCountersignId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.ContractCounterSign">
+    insert into HT_CONTRACT_COUNTERSIGN (C_CONTRACT_COUNTERSIGN_ID, C_CONTRACT_ID, C_DEPARTMENT_ID,
+    C_USER_ID, N_SIGN_TYPE, V_SIGN_SUGGESTION,
+    D_SIGN_DATE, D_UPDATE, D_UPDATE_USER_ID,
+    N_DELETED, D_DELETE_DATE, N_IS_WITHDRAW,
+    N_BATCH_NO,V_ROLE_NAME
+    )
+    values (#{contractCountersignId,jdbcType=CHAR}, #{contractId,jdbcType=CHAR}, #{departmentId,jdbcType=CHAR},
+    #{userId,jdbcType=CHAR}, #{signType,jdbcType=DECIMAL}, #{signSuggestion,jdbcType=VARCHAR},
+    #{signDate,jdbcType=TIMESTAMP}, #{update,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=CHAR},
+    #{deleted,jdbcType=DECIMAL}, #{deleteDate,jdbcType=TIMESTAMP}, #{isWithdraw,jdbcType=DECIMAL},
+    #{batchNo,jdbcType=DECIMAL},#{roleName,jdbcType=VARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.ContractCounterSign">
+    insert into HT_CONTRACT_COUNTERSIGN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contractCountersignId != null">
+        C_CONTRACT_COUNTERSIGN_ID,
+      </if>
+      <if test="contractId != null">
+        C_CONTRACT_ID,
+      </if>
+      <if test="departmentId != null">
+        C_DEPARTMENT_ID,
+      </if>
+      <if test="userId != null">
+        C_USER_ID,
+      </if>
+      <if test="signType != null">
+        N_SIGN_TYPE,
+      </if>
+      <if test="signSuggestion != null">
+        V_SIGN_SUGGESTION,
+      </if>
+      <if test="signDate != null">
+        D_SIGN_DATE,
+      </if>
+      <if test="update != null">
+        D_UPDATE,
+      </if>
+      <if test="updateUserId != null">
+        D_UPDATE_USER_ID,
+      </if>
+      <if test="deleted != null">
+        N_DELETED,
+      </if>
+      <if test="deleteDate != null">
+        D_DELETE_DATE,
+      </if>
+      <if test="isWithdraw != null">
+        N_IS_WITHDRAW,
+      </if>
+      <if test="batchNo != null">
+        N_BATCH_NO,
+      </if>
+      <if test="roleName !=null">
+        V_ROLE_NAME
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contractCountersignId != null">
+        #{contractCountersignId,jdbcType=CHAR},
+      </if>
+      <if test="contractId != null">
+        #{contractId,jdbcType=CHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="signType != null">
+        #{signType,jdbcType=DECIMAL},
+      </if>
+      <if test="signSuggestion != null">
+        #{signSuggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null">
+        #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update != null">
+        #{update,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteDate != null">
+        #{deleteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isWithdraw != null">
+        #{isWithdraw,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.ContractCounterSign">
+    update HT_CONTRACT_COUNTERSIGN
+    <set>
+      <if test="contractId != null">
+        C_CONTRACT_ID = #{contractId,jdbcType=CHAR},
+      </if>
+      <if test="departmentId != null">
+        C_DEPARTMENT_ID = #{departmentId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        C_USER_ID = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="signType != null">
+        N_SIGN_TYPE = #{signType,jdbcType=DECIMAL},
+      </if>
+      <if test="signSuggestion != null">
+        V_SIGN_SUGGESTION = #{signSuggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null">
+        D_SIGN_DATE = #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update != null">
+        D_UPDATE = #{update,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        D_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        N_DELETED = #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteDate != null">
+        D_DELETE_DATE = #{deleteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isWithdraw != null">
+        N_IS_WITHDRAW = #{isWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="batchNo != null">
+        N_BATCH_NO = #{batchNo,jdbcType=DECIMAL},
+      </if>
+      <if test="roleName != null">
+        V_ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where C_CONTRACT_COUNTERSIGN_ID = #{contractCountersignId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.ContractCounterSign">
+    update HT_CONTRACT_COUNTERSIGN
+    set C_CONTRACT_ID = #{contractId,jdbcType=CHAR},
+      C_DEPARTMENT_ID = #{departmentId,jdbcType=CHAR},
+      C_USER_ID = #{userId,jdbcType=CHAR},
+      N_SIGN_TYPE = #{signType,jdbcType=DECIMAL},
+      V_SIGN_SUGGESTION = #{signSuggestion,jdbcType=VARCHAR},
+      D_SIGN_DATE = #{signDate,jdbcType=TIMESTAMP},
+      D_UPDATE = #{update,jdbcType=TIMESTAMP},
+      D_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      N_DELETED = #{deleted,jdbcType=DECIMAL},
+      D_DELETE_DATE = #{deleteDate,jdbcType=TIMESTAMP},
+      N_IS_WITHDRAW = #{isWithdraw,jdbcType=DECIMAL},
+       N_BATCH_NO = #{batchNo,jdbcType=DECIMAL},
+       V_ROLE_NAME = #{roleName,jdbcType=VARCHAR}
+    where C_CONTRACT_COUNTERSIGN_ID = #{contractCountersignId,jdbcType=CHAR}
+  </update>
+</mapper>

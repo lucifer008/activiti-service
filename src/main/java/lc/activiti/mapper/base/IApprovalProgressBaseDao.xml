@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IApprovalProgressBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.ApprovalProgressBase">
+    <result column="C_APPROVAL_ID" jdbcType="CHAR" property="approvalId" />
+    <result column="C_ORDER_ID" jdbcType="CHAR" property="orderId" />
+    <result column="C_APPROVAL_USER_ID" jdbcType="CHAR" property="approvalUserId" />
+    <result column="C_APPROVAL_USER_NAME" jdbcType="CHAR" property="approvalUserName" />
+    <result column="D_APPROVAL_DATE" jdbcType="TIMESTAMP" property="approvalDate" />
+    <result column="N_APPROVAL_STATUS" jdbcType="DECIMAL" property="approvalStatus" />
+    <result column="V_MEMO" jdbcType="CHAR" property="memo" />
+    <result column="D_INPUT_DATE" jdbcType="TIMESTAMP" property="inputDate" />
+    <result column="N_SORT_NO" jdbcType="DECIMAL" property="sortNo" />
+  </resultMap>
+  <insert id="insert" parameterType="lc.activiti.entity.ApprovalProgressBase">
+    insert into SHOP_APPROVAL_PROGRESS (C_APPROVAL_ID, C_ORDER_ID, C_APPROVAL_USER_ID, 
+      C_APPROVAL_USER_NAME, D_APPROVAL_DATE, N_APPROVAL_STATUS, 
+      V_MEMO, D_INPUT_DATE, N_SORT_NO
+      )
+    values (#{approvalId,jdbcType=CHAR}, #{orderId,jdbcType=CHAR}, #{approvalUserId,jdbcType=CHAR}, 
+      #{approvalUserName,jdbcType=CHAR}, #{approvalDate,jdbcType=TIMESTAMP}, #{approvalStatus,jdbcType=DECIMAL}, 
+      #{memo,jdbcType=CHAR}, #{inputDate,jdbcType=TIMESTAMP}, #{sortNo,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.ApprovalProgressBase">
+    insert into SHOP_APPROVAL_PROGRESS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="approvalId != null">
+        C_APPROVAL_ID,
+      </if>
+      <if test="orderId != null">
+        C_ORDER_ID,
+      </if>
+      <if test="approvalUserId != null">
+        C_APPROVAL_USER_ID,
+      </if>
+      <if test="approvalUserName != null">
+        C_APPROVAL_USER_NAME,
+      </if>
+      <if test="approvalDate != null">
+        D_APPROVAL_DATE,
+      </if>
+      <if test="approvalStatus != null">
+        N_APPROVAL_STATUS,
+      </if>
+      <if test="memo != null">
+        V_MEMO,
+      </if>
+      <if test="inputDate != null">
+        D_INPUT_DATE,
+      </if>
+      <if test="sortNo != null">
+        N_SORT_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="approvalId != null">
+        #{approvalId,jdbcType=CHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=CHAR},
+      </if>
+      <if test="approvalUserId != null">
+        #{approvalUserId,jdbcType=CHAR},
+      </if>
+      <if test="approvalUserName != null">
+        #{approvalUserName,jdbcType=CHAR},
+      </if>
+      <if test="approvalDate != null">
+        #{approvalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalStatus != null">
+        #{approvalStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=CHAR},
+      </if>
+      <if test="inputDate != null">
+        #{inputDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sortNo != null">
+        #{sortNo,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IRecruitPlanBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.RecruitPlanBase">
+    <id column="C_RECRUIT_PLAN_ID" jdbcType="CHAR" property="recruitPlanId" />
+    <result column="C_DEP_ID1" jdbcType="CHAR" property="depId1" />
+    <result column="C_DEP_ID2" jdbcType="CHAR" property="depId2" />
+    <result column="C_DEP_ID3" jdbcType="CHAR" property="depId3" />
+    <result column="C_DEP_ID4" jdbcType="CHAR" property="depId4" />
+    <result column="C_DEP_ID5" jdbcType="CHAR" property="depId5" />
+    <result column="C_DEP_ID6" jdbcType="CHAR" property="depId6" />
+    <result column="C_DEP_ID7" jdbcType="CHAR" property="depId7" />
+    <result column="C_POSITION_ID" jdbcType="CHAR" property="positionId" />
+    <result column="N_YEAR" jdbcType="DECIMAL" property="year" />
+    <result column="N_ONE" jdbcType="DECIMAL" property="one" />
+    <result column="N_SECOND" jdbcType="DECIMAL" property="second" />
+    <result column="N_THREE" jdbcType="DECIMAL" property="three" />
+    <result column="N_FOURTH" jdbcType="DECIMAL" property="fourth" />
+    <result column="N_FIVE" jdbcType="DECIMAL" property="five" />
+    <result column="N_SIX" jdbcType="DECIMAL" property="six" />
+    <result column="N_SENVEN" jdbcType="DECIMAL" property="senven" />
+    <result column="N_EIGHT" jdbcType="DECIMAL" property="eight" />
+    <result column="N_NIGHT" jdbcType="DECIMAL" property="night" />
+    <result column="N_TEN" jdbcType="DECIMAL" property="ten" />
+    <result column="N_ELEVEN" jdbcType="DECIMAL" property="eleven" />
+    <result column="N_TWELVE" jdbcType="DECIMAL" property="twelve" />
+    <result column="N_FINAL_PERSONS" jdbcType="DECIMAL" property="finalPersons" />
+    <result column="D_INPUT" jdbcType="TIMESTAMP" property="input" />
+    <result column="C_INPUT_USER_ID" jdbcType="CHAR" property="inputUserId" />
+    <result column="D_UPDATE_USER_ID" jdbcType="CHAR" property="updateUserId" />
+    <result column="D_UPDATE" jdbcType="TIMESTAMP" property="update" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_RECRUIT_PLAN_ID, C_DEP_ID1, C_DEP_ID2, C_DEP_ID3, C_DEP_ID4, C_DEP_ID5, C_DEP_ID6, 
+    C_DEP_ID7, C_POSITION_ID, N_YEAR, N_ONE, N_SECOND, N_THREE, N_FOURTH, N_FIVE, N_SIX, 
+    N_SENVEN, N_EIGHT, N_NIGHT, N_TEN, N_ELEVEN, N_TWELVE, N_FINAL_PERSONS, D_INPUT, 
+    C_INPUT_USER_ID, D_UPDATE_USER_ID, D_UPDATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OA_RECRUIT_PLAN
+    where C_RECRUIT_PLAN_ID = #{recruitPlanId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from OA_RECRUIT_PLAN
+    where C_RECRUIT_PLAN_ID = #{recruitPlanId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.RecruitPlanBase">
+    insert into OA_RECRUIT_PLAN (C_RECRUIT_PLAN_ID, C_DEP_ID1, C_DEP_ID2, 
+      C_DEP_ID3, C_DEP_ID4, C_DEP_ID5, C_DEP_ID6, 
+      C_DEP_ID7, C_POSITION_ID, N_YEAR, 
+      N_ONE, N_SECOND, N_THREE, 
+      N_FOURTH, N_FIVE, N_SIX, 
+      N_SENVEN, N_EIGHT, N_NIGHT, 
+      N_TEN, N_ELEVEN, N_TWELVE, 
+      N_FINAL_PERSONS, D_INPUT, C_INPUT_USER_ID, 
+      D_UPDATE_USER_ID, D_UPDATE)
+    values (#{recruitPlanId,jdbcType=CHAR}, #{depId1,jdbcType=CHAR}, #{depId2,jdbcType=CHAR}, 
+      #{depId3,jdbcType=CHAR}, #{depId4,jdbcType=CHAR}, #{depId5,jdbcType=CHAR}, #{depId6,jdbcType=CHAR}, 
+      #{depId7,jdbcType=CHAR}, #{positionId,jdbcType=CHAR}, #{year,jdbcType=DECIMAL}, 
+      #{one,jdbcType=DECIMAL}, #{second,jdbcType=DECIMAL}, #{three,jdbcType=DECIMAL}, 
+      #{fourth,jdbcType=DECIMAL}, #{five,jdbcType=DECIMAL}, #{six,jdbcType=DECIMAL}, 
+      #{senven,jdbcType=DECIMAL}, #{eight,jdbcType=DECIMAL}, #{night,jdbcType=DECIMAL}, 
+      #{ten,jdbcType=DECIMAL}, #{eleven,jdbcType=DECIMAL}, #{twelve,jdbcType=DECIMAL}, 
+      #{finalPersons,jdbcType=DECIMAL}, #{input,jdbcType=TIMESTAMP}, #{inputUserId,jdbcType=CHAR}, 
+      #{updateUserId,jdbcType=CHAR}, #{update,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.RecruitPlanBase">
+    insert into OA_RECRUIT_PLAN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recruitPlanId != null">
+        C_RECRUIT_PLAN_ID,
+      </if>
+      <if test="depId1 != null">
+        C_DEP_ID1,
+      </if>
+      <if test="depId2 != null">
+        C_DEP_ID2,
+      </if>
+      <if test="depId3 != null">
+        C_DEP_ID3,
+      </if>
+      <if test="depId4 != null">
+        C_DEP_ID4,
+      </if>
+      <if test="depId5 != null">
+        C_DEP_ID5,
+      </if>
+      <if test="depId6 != null">
+        C_DEP_ID6,
+      </if>
+      <if test="depId7 != null">
+        C_DEP_ID7,
+      </if>
+      <if test="positionId != null">
+        C_POSITION_ID,
+      </if>
+      <if test="year != null">
+        N_YEAR,
+      </if>
+      <if test="one != null">
+        N_ONE,
+      </if>
+      <if test="second != null">
+        N_SECOND,
+      </if>
+      <if test="three != null">
+        N_THREE,
+      </if>
+      <if test="fourth != null">
+        N_FOURTH,
+      </if>
+      <if test="five != null">
+        N_FIVE,
+      </if>
+      <if test="six != null">
+        N_SIX,
+      </if>
+      <if test="senven != null">
+        N_SENVEN,
+      </if>
+      <if test="eight != null">
+        N_EIGHT,
+      </if>
+      <if test="night != null">
+        N_NIGHT,
+      </if>
+      <if test="ten != null">
+        N_TEN,
+      </if>
+      <if test="eleven != null">
+        N_ELEVEN,
+      </if>
+      <if test="twelve != null">
+        N_TWELVE,
+      </if>
+      <if test="finalPersons != null">
+        N_FINAL_PERSONS,
+      </if>
+      <if test="input != null">
+        D_INPUT,
+      </if>
+      <if test="inputUserId != null">
+        C_INPUT_USER_ID,
+      </if>
+      <if test="updateUserId != null">
+        D_UPDATE_USER_ID,
+      </if>
+      <if test="update != null">
+        D_UPDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recruitPlanId != null">
+        #{recruitPlanId,jdbcType=CHAR},
+      </if>
+      <if test="depId1 != null">
+        #{depId1,jdbcType=CHAR},
+      </if>
+      <if test="depId2 != null">
+        #{depId2,jdbcType=CHAR},
+      </if>
+      <if test="depId3 != null">
+        #{depId3,jdbcType=CHAR},
+      </if>
+      <if test="depId4 != null">
+        #{depId4,jdbcType=CHAR},
+      </if>
+      <if test="depId5 != null">
+        #{depId5,jdbcType=CHAR},
+      </if>
+      <if test="depId6 != null">
+        #{depId6,jdbcType=CHAR},
+      </if>
+      <if test="depId7 != null">
+        #{depId7,jdbcType=CHAR},
+      </if>
+      <if test="positionId != null">
+        #{positionId,jdbcType=CHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=DECIMAL},
+      </if>
+      <if test="one != null">
+        #{one,jdbcType=DECIMAL},
+      </if>
+      <if test="second != null">
+        #{second,jdbcType=DECIMAL},
+      </if>
+      <if test="three != null">
+        #{three,jdbcType=DECIMAL},
+      </if>
+      <if test="fourth != null">
+        #{fourth,jdbcType=DECIMAL},
+      </if>
+      <if test="five != null">
+        #{five,jdbcType=DECIMAL},
+      </if>
+      <if test="six != null">
+        #{six,jdbcType=DECIMAL},
+      </if>
+      <if test="senven != null">
+        #{senven,jdbcType=DECIMAL},
+      </if>
+      <if test="eight != null">
+        #{eight,jdbcType=DECIMAL},
+      </if>
+      <if test="night != null">
+        #{night,jdbcType=DECIMAL},
+      </if>
+      <if test="ten != null">
+        #{ten,jdbcType=DECIMAL},
+      </if>
+      <if test="eleven != null">
+        #{eleven,jdbcType=DECIMAL},
+      </if>
+      <if test="twelve != null">
+        #{twelve,jdbcType=DECIMAL},
+      </if>
+      <if test="finalPersons != null">
+        #{finalPersons,jdbcType=DECIMAL},
+      </if>
+      <if test="input != null">
+        #{input,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inputUserId != null">
+        #{inputUserId,jdbcType=CHAR},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="update != null">
+        #{update,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.RecruitPlanBase">
+    update OA_RECRUIT_PLAN
+    <set>
+      <if test="depId1 != null">
+        C_DEP_ID1 = #{depId1,jdbcType=CHAR},
+      </if>
+      <if test="depId2 != null">
+        C_DEP_ID2 = #{depId2,jdbcType=CHAR},
+      </if>
+      <if test="depId3 != null">
+        C_DEP_ID3 = #{depId3,jdbcType=CHAR},
+      </if>
+      <if test="depId4 != null">
+        C_DEP_ID4 = #{depId4,jdbcType=CHAR},
+      </if>
+      <if test="depId5 != null">
+        C_DEP_ID5 = #{depId5,jdbcType=CHAR},
+      </if>
+      <if test="depId6 != null">
+        C_DEP_ID6 = #{depId6,jdbcType=CHAR},
+      </if>
+      <if test="depId7 != null">
+        C_DEP_ID7 = #{depId7,jdbcType=CHAR},
+      </if>
+      <if test="positionId != null">
+        C_POSITION_ID = #{positionId,jdbcType=CHAR},
+      </if>
+      <if test="year != null">
+        N_YEAR = #{year,jdbcType=DECIMAL},
+      </if>
+      <if test="one != null">
+        N_ONE = #{one,jdbcType=DECIMAL},
+      </if>
+      <if test="second != null">
+        N_SECOND = #{second,jdbcType=DECIMAL},
+      </if>
+      <if test="three != null">
+        N_THREE = #{three,jdbcType=DECIMAL},
+      </if>
+      <if test="fourth != null">
+        N_FOURTH = #{fourth,jdbcType=DECIMAL},
+      </if>
+      <if test="five != null">
+        N_FIVE = #{five,jdbcType=DECIMAL},
+      </if>
+      <if test="six != null">
+        N_SIX = #{six,jdbcType=DECIMAL},
+      </if>
+      <if test="senven != null">
+        N_SENVEN = #{senven,jdbcType=DECIMAL},
+      </if>
+      <if test="eight != null">
+        N_EIGHT = #{eight,jdbcType=DECIMAL},
+      </if>
+      <if test="night != null">
+        N_NIGHT = #{night,jdbcType=DECIMAL},
+      </if>
+      <if test="ten != null">
+        N_TEN = #{ten,jdbcType=DECIMAL},
+      </if>
+      <if test="eleven != null">
+        N_ELEVEN = #{eleven,jdbcType=DECIMAL},
+      </if>
+      <if test="twelve != null">
+        N_TWELVE = #{twelve,jdbcType=DECIMAL},
+      </if>
+      <if test="finalPersons != null">
+        N_FINAL_PERSONS = #{finalPersons,jdbcType=DECIMAL},
+      </if>
+      <if test="input != null">
+        D_INPUT = #{input,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inputUserId != null">
+        C_INPUT_USER_ID = #{inputUserId,jdbcType=CHAR},
+      </if>
+      <if test="updateUserId != null">
+        D_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="update != null">
+        D_UPDATE = #{update,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where C_RECRUIT_PLAN_ID = #{recruitPlanId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.RecruitPlanBase">
+    update OA_RECRUIT_PLAN
+    set C_DEP_ID1 = #{depId1,jdbcType=CHAR},
+      C_DEP_ID2 = #{depId2,jdbcType=CHAR},
+      C_DEP_ID3 = #{depId3,jdbcType=CHAR},
+      C_DEP_ID4 = #{depId4,jdbcType=CHAR},
+      C_DEP_ID5 = #{depId5,jdbcType=CHAR},
+      C_DEP_ID6 = #{depId6,jdbcType=CHAR},
+      C_DEP_ID7 = #{depId7,jdbcType=CHAR},
+      C_POSITION_ID = #{positionId,jdbcType=CHAR},
+      N_YEAR = #{year,jdbcType=DECIMAL},
+      N_ONE = #{one,jdbcType=DECIMAL},
+      N_SECOND = #{second,jdbcType=DECIMAL},
+      N_THREE = #{three,jdbcType=DECIMAL},
+      N_FOURTH = #{fourth,jdbcType=DECIMAL},
+      N_FIVE = #{five,jdbcType=DECIMAL},
+      N_SIX = #{six,jdbcType=DECIMAL},
+      N_SENVEN = #{senven,jdbcType=DECIMAL},
+      N_EIGHT = #{eight,jdbcType=DECIMAL},
+      N_NIGHT = #{night,jdbcType=DECIMAL},
+      N_TEN = #{ten,jdbcType=DECIMAL},
+      N_ELEVEN = #{eleven,jdbcType=DECIMAL},
+      N_TWELVE = #{twelve,jdbcType=DECIMAL},
+      N_FINAL_PERSONS = #{finalPersons,jdbcType=DECIMAL},
+      D_INPUT = #{input,jdbcType=TIMESTAMP},
+      C_INPUT_USER_ID = #{inputUserId,jdbcType=CHAR},
+      D_UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      D_UPDATE = #{update,jdbcType=TIMESTAMP}
+    where C_RECRUIT_PLAN_ID = #{recruitPlanId,jdbcType=CHAR}
+  </update>
+</mapper>

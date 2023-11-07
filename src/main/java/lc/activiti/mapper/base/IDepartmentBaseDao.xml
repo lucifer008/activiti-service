@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IDepartmentBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.Departments">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="OA__ID" jdbcType="CHAR" property="oaId" />
+    <result column="OA__ID2" jdbcType="CHAR" property="oaId2" />
+    <result column="DEP_CODE" jdbcType="VARCHAR" property="depCode" />
+    <result column="DEP_NAME" jdbcType="VARCHAR" property="depName" />
+    <result column="DEP_PERSON" jdbcType="VARCHAR" property="depPerson" />
+    <result column="DEP_PERSON_ID" jdbcType="CHAR" property="depPersonId" />
+    <result column="TEL" jdbcType="VARCHAR" property="tel" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="TAX" jdbcType="VARCHAR" property="tax" />
+    <result column="DEPTYPEID" jdbcType="CHAR" property="deptypeid" />
+    <result column="INSERT_USER_ID" jdbcType="CHAR" property="insertUserId" />
+    <result column="INSERT_DATE_TIME" jdbcType="TIMESTAMP" property="insertDateTime" />
+    <result column="UPDATE_USER_ID" jdbcType="CHAR" property="updateUserId" />
+    <result column="UPDATE_DATE_TIME" jdbcType="TIMESTAMP" property="updateDateTime" />
+    <result column="COMPANY_ID" jdbcType="CHAR" property="companyId" />
+    <result column="DELETED" jdbcType="DECIMAL" property="deleted" />
+    <result column="DEP_TYPE_ID" jdbcType="CHAR" property="depTypeId" />
+    <result column="D_LEVEL" jdbcType="DECIMAL" property="dLevel" />
+  </resultMap>
+  <resultMap id="NewBaseResultMap" type="lc.activiti.entity.Departments">
+    <id column="C_ORGANIZATION_ID" jdbcType="CHAR" property="id" />
+    <result column="V_ORGANIZATION_NAME" jdbcType="VARCHAR" property="depName" />
+    <result column="C_ORGANIZATION_PARENT_ID" jdbcType="CHAR" property="oaId" />
+    <result column="N_ORGANIZATION_LEVEL" jdbcType="DECIMAL" property="dLevel" />
+    <result column="N_ORGANIZATION_TYPE" jdbcType="DECIMAL" property="type" />
+    <result column="C_ORGANIZATION_OWNER" jdbcType="VARCHAR" property="depPersonId" />
+    <result column="N_STATUS" jdbcType="DECIMAL" property="deleted" />
+    <result column="V_ORGANIZATION_ABBNAME" jdbcType="VARCHAR" property="abbName" />
+    <result column="C_ORGANIZATION_BP" jdbcType="VARCHAR" property="BP" />
+    <result column="N_ORDER" jdbcType="DECIMAL" property="order" />
+    <result column="C_ORGANIZATION_PO" jdbcType="VARCHAR" property="PO" />
+    <result column="v_user_name" jdbcType="VARCHAR" property="depPerson" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, OA__ID, OA__ID2, DEP_CODE, DEP_NAME, DEP_PERSON, DEP_PERSON_ID, TEL, MOBILE, 
+    STATUS, TAX, DEPTYPEID, INSERT_USER_ID, INSERT_DATE_TIME, UPDATE_USER_ID, UPDATE_DATE_TIME, 
+    COMPANY_ID, DELETED, DEP_TYPE_ID, D_LEVEL
+  </sql>
+  <sql id="New_Base_Column_List">
+    d.C_ORGANIZATION_ID,V_ORGANIZATION_NAME,C_ORGANIZATION_PARENT_ID,N_ORGANIZATION_LEVEL,N_ORGANIZATION_TYPE,
+      C_ORGANIZATION_OWNER,d.N_STATUS,V_ORGANIZATION_ABBNAME,C_ORGANIZATION_BP,N_ORDER,C_ORGANIZATION_PO,u.v_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="NewBaseResultMap">
+    select
+    <include refid="New_Base_Column_List" />
+    from lcbase.t_zip_organization d
+    left join lcbase.t_zip_user u
+    on u.c_user_id = d.c_organization_owner
+    and u.d_enddate &gt; sysdate
+    where d.d_enddate &gt; sysdate and d.C_ORGANIZATION_ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from OA_DEPARTMENT
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.Departments">
+    insert into OA_DEPARTMENT (ID, OA__ID, OA__ID2, DEP_CODE, 
+      DEP_NAME, DEP_PERSON, DEP_PERSON_ID, 
+      TEL, MOBILE, STATUS, 
+      TAX, DEPTYPEID, INSERT_USER_ID, 
+      INSERT_DATE_TIME, UPDATE_USER_ID, UPDATE_DATE_TIME, 
+      COMPANY_ID, DELETED, DEP_TYPE_ID, 
+      D_LEVEL)
+    values (#{id,jdbcType=CHAR}, #{oaId,jdbcType=CHAR}, #{oaId2,jdbcType=CHAR}, #{depCode,jdbcType=VARCHAR}, 
+      #{depName,jdbcType=VARCHAR}, #{depPerson,jdbcType=VARCHAR}, #{depPersonId,jdbcType=CHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{tax,jdbcType=VARCHAR}, #{deptypeid,jdbcType=CHAR}, #{insertUserId,jdbcType=CHAR}, 
+      #{insertDateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=CHAR}, #{updateDateTime,jdbcType=TIMESTAMP}, 
+      #{companyId,jdbcType=CHAR}, #{deleted,jdbcType=DECIMAL}, #{depTypeId,jdbcType=CHAR}, 
+      #{dLevel,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.Departments">
+    insert into OA_DEPARTMENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="oaId != null">
+        OA__ID,
+      </if>
+      <if test="oaId2 != null">
+        OA__ID2,
+      </if>
+      <if test="depCode != null">
+        DEP_CODE,
+      </if>
+      <if test="depName != null">
+        DEP_NAME,
+      </if>
+      <if test="depPerson != null">
+        DEP_PERSON,
+      </if>
+      <if test="depPersonId != null">
+        DEP_PERSON_ID,
+      </if>
+      <if test="tel != null">
+        TEL,
+      </if>
+      <if test="mobile != null">
+        MOBILE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="tax != null">
+        TAX,
+      </if>
+      <if test="deptypeid != null">
+        DEPTYPEID,
+      </if>
+      <if test="insertUserId != null">
+        INSERT_USER_ID,
+      </if>
+      <if test="insertDateTime != null">
+        INSERT_DATE_TIME,
+      </if>
+      <if test="updateUserId != null">
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateDateTime != null">
+        UPDATE_DATE_TIME,
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID,
+      </if>
+      <if test="deleted != null">
+        DELETED,
+      </if>
+      <if test="depTypeId != null">
+        DEP_TYPE_ID,
+      </if>
+      <if test="dLevel != null">
+        D_LEVEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="oaId != null">
+        #{oaId,jdbcType=CHAR},
+      </if>
+      <if test="oaId2 != null">
+        #{oaId2,jdbcType=CHAR},
+      </if>
+      <if test="depCode != null">
+        #{depCode,jdbcType=VARCHAR},
+      </if>
+      <if test="depName != null">
+        #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depPerson != null">
+        #{depPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="depPersonId != null">
+        #{depPersonId,jdbcType=CHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null">
+        #{tax,jdbcType=VARCHAR},
+      </if>
+      <if test="deptypeid != null">
+        #{deptypeid,jdbcType=CHAR},
+      </if>
+      <if test="insertUserId != null">
+        #{insertUserId,jdbcType=CHAR},
+      </if>
+      <if test="insertDateTime != null">
+        #{insertDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="updateDateTime != null">
+        #{updateDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="depTypeId != null">
+        #{depTypeId,jdbcType=CHAR},
+      </if>
+      <if test="dLevel != null">
+        #{dLevel,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.Departments">
+    update OA_DEPARTMENT
+    <set>
+      <if test="oaId != null">
+        OA__ID = #{oaId,jdbcType=CHAR},
+      </if>
+      <if test="oaId2 != null">
+        OA__ID2 = #{oaId2,jdbcType=CHAR},
+      </if>
+      <if test="depCode != null">
+        DEP_CODE = #{depCode,jdbcType=VARCHAR},
+      </if>
+      <if test="depName != null">
+        DEP_NAME = #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depPerson != null">
+        DEP_PERSON = #{depPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="depPersonId != null">
+        DEP_PERSON_ID = #{depPersonId,jdbcType=CHAR},
+      </if>
+      <if test="tel != null">
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null">
+        TAX = #{tax,jdbcType=VARCHAR},
+      </if>
+      <if test="deptypeid != null">
+        DEPTYPEID = #{deptypeid,jdbcType=CHAR},
+      </if>
+      <if test="insertUserId != null">
+        INSERT_USER_ID = #{insertUserId,jdbcType=CHAR},
+      </if>
+      <if test="insertDateTime != null">
+        INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      </if>
+      <if test="updateDateTime != null">
+        UPDATE_DATE_TIME = #{updateDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID = #{companyId,jdbcType=CHAR},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="depTypeId != null">
+        DEP_TYPE_ID = #{depTypeId,jdbcType=CHAR},
+      </if>
+      <if test="dLevel != null">
+        D_LEVEL = #{dLevel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.Departments">
+    update OA_DEPARTMENT
+    set OA__ID = #{oaId,jdbcType=CHAR},
+      OA__ID2 = #{oaId2,jdbcType=CHAR},
+      DEP_CODE = #{depCode,jdbcType=VARCHAR},
+      DEP_NAME = #{depName,jdbcType=VARCHAR},
+      DEP_PERSON = #{depPerson,jdbcType=VARCHAR},
+      DEP_PERSON_ID = #{depPersonId,jdbcType=CHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      TAX = #{tax,jdbcType=VARCHAR},
+      DEPTYPEID = #{deptypeid,jdbcType=CHAR},
+      INSERT_USER_ID = #{insertUserId,jdbcType=CHAR},
+      INSERT_DATE_TIME = #{insertDateTime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=CHAR},
+      UPDATE_DATE_TIME = #{updateDateTime,jdbcType=TIMESTAMP},
+      COMPANY_ID = #{companyId,jdbcType=CHAR},
+      DELETED = #{deleted,jdbcType=DECIMAL},
+      DEP_TYPE_ID = #{depTypeId,jdbcType=CHAR},
+      D_LEVEL = #{dLevel,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

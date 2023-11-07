@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.IApprovalSealDao">
+<resultMap id="rMapUserRoles" type="lc.activiti.entity.Users">
+	<result column="userId" property="userId"/>
+	<result column="userName" property="userName"/>
+	<result column="roleType" property="roleType"/>
+	<result column="roleName" property="userRemark"/>
+	<result column="roleId" property="positionId"/>
+</resultMap>
+ <select id="getUserRoles" resultMap="rMapUserRoles">
+select UR.C_USER_ID    userId,
+       UR.C_ROLE_ID   roleId,
+       RO.ROLE_NAME roleName,
+       Ro.Role_Type roleType,
+       UI.V_USER_NAME userName
+  from lcbase.oa_aut_user_role UR
+ INNER jOIN lcbase.oa_aut_role RO
+    ON UR.C_ROLE_ID = Ro.c_Role_Id
+ INNER JOIN lcbase.t_zip_user UI ON UI.C_USER_ID=UR.C_USER_ID and ui.d_enddate &gt; sysdate
+WHERE RO.ROLE_TYPE in(${roleTypes})
+ </select>
+</mapper>

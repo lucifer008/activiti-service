@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IWechartNoticeUsersBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.WechartNoticeUsers">
+    <id column="C_OPENID" jdbcType="CHAR" property="openid" />
+    <id column="C_FORMID" jdbcType="CHAR" property="formid" />
+    <result column="C_USER_ID" jdbcType="CHAR" property="userId" />
+    <result column="V_USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="D_UPLOAD_DATE" jdbcType="TIMESTAMP" property="uploadDate" />
+    <result column="N_STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="D_UPDATE" jdbcType="TIMESTAMP" property="update" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_OPENID, C_FORMID, C_USER_ID, V_USER_NAME, D_UPLOAD_DATE, N_STATUS, D_UPDATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="lc.activiti.entity.WechartNoticeUsersKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HT_WECHART_NOTICE_USERS
+    where C_OPENID = #{openid,jdbcType=CHAR}
+      and C_FORMID = #{formid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="lc.activiti.entity.WechartNoticeUsersKey">
+    delete from HT_WECHART_NOTICE_USERS
+    where C_OPENID = #{openid,jdbcType=CHAR}
+      and C_FORMID = #{formid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.WechartNoticeUsers">
+    insert into HT_WECHART_NOTICE_USERS (C_OPENID, C_FORMID, C_USER_ID, 
+      V_USER_NAME, D_UPLOAD_DATE, N_STATUS, 
+      D_UPDATE)
+    values (#{openid,jdbcType=CHAR}, #{formid,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{uploadDate,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL}, 
+      #{update,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.WechartNoticeUsers">
+    insert into HT_WECHART_NOTICE_USERS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="openid != null">
+        C_OPENID,
+      </if>
+      <if test="formid != null">
+        C_FORMID,
+      </if>
+      <if test="userId != null">
+        C_USER_ID,
+      </if>
+      <if test="userName != null">
+        V_USER_NAME,
+      </if>
+      <if test="uploadDate != null">
+        D_UPLOAD_DATE,
+      </if>
+      <if test="status != null">
+        N_STATUS,
+      </if>
+      <if test="update != null">
+        D_UPDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="openid != null">
+        #{openid,jdbcType=CHAR},
+      </if>
+      <if test="formid != null">
+        #{formid,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadDate != null">
+        #{uploadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="update != null">
+        #{update,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.WechartNoticeUsers">
+    update HT_WECHART_NOTICE_USERS
+    <set>
+      <if test="userId != null">
+        C_USER_ID = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="userName != null">
+        V_USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadDate != null">
+        D_UPLOAD_DATE = #{uploadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        N_STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="update != null">
+        D_UPDATE = #{update,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where C_OPENID = #{openid,jdbcType=CHAR}
+      and C_FORMID = #{formid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.WechartNoticeUsers">
+    update HT_WECHART_NOTICE_USERS
+    set C_USER_ID = #{userId,jdbcType=CHAR},
+      V_USER_NAME = #{userName,jdbcType=VARCHAR},
+      D_UPLOAD_DATE = #{uploadDate,jdbcType=TIMESTAMP},
+      N_STATUS = #{status,jdbcType=DECIMAL},
+      D_UPDATE = #{update,jdbcType=TIMESTAMP}
+    where C_OPENID = #{openid,jdbcType=CHAR}
+      and C_FORMID = #{formid,jdbcType=CHAR}
+  </update>
+</mapper>

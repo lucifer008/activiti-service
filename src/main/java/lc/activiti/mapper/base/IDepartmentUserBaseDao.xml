@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.base.IDepartmentUserBaseDao">
+  <resultMap id="BaseResultMap" type="lc.activiti.entity.DepartmentUserRoles">
+    <id column="C_DEPARTMENT_USERS_ID" jdbcType="CHAR" property="cDepartmentUsersId" />
+    <result column="C_DEPARTMENT_ID" jdbcType="CHAR" property="cDepartmentId" />
+    <result column="C_USERS_ID" jdbcType="CHAR" property="cUsersId" />
+    <result column="D_INPUT" jdbcType="TIMESTAMP" property="dInput" />
+    <result column="D_INPUT_USER_ID" jdbcType="CHAR" property="dInputUserId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    C_DEPARTMENT_USERS_ID, C_DEPARTMENT_ID, C_USERS_ID, D_INPUT, D_INPUT_USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OA_DEPARTMENT_USERS
+    where C_DEPARTMENT_USERS_ID = #{cDepartmentUsersId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from OA_DEPARTMENT_USERS
+    where C_DEPARTMENT_USERS_ID = #{cDepartmentUsersId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="lc.activiti.entity.DepartmentUserRoles">
+    insert into OA_DEPARTMENT_USERS (C_DEPARTMENT_USERS_ID, C_DEPARTMENT_ID, C_USERS_ID, 
+      D_INPUT, D_INPUT_USER_ID)
+    values (#{cDepartmentUsersId,jdbcType=CHAR}, #{cDepartmentId,jdbcType=CHAR}, #{cUsersId,jdbcType=CHAR}, 
+      #{dInput,jdbcType=TIMESTAMP}, #{dInputUserId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="lc.activiti.entity.DepartmentUserRoles">
+    insert into OA_DEPARTMENT_USERS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cDepartmentUsersId != null">
+        C_DEPARTMENT_USERS_ID,
+      </if>
+      <if test="cDepartmentId != null">
+        C_DEPARTMENT_ID,
+      </if>
+      <if test="cUsersId != null">
+        C_USERS_ID,
+      </if>
+      <if test="dInput != null">
+        D_INPUT,
+      </if>
+      <if test="dInputUserId != null">
+        D_INPUT_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cDepartmentUsersId != null">
+        #{cDepartmentUsersId,jdbcType=CHAR},
+      </if>
+      <if test="cDepartmentId != null">
+        #{cDepartmentId,jdbcType=CHAR},
+      </if>
+      <if test="cUsersId != null">
+        #{cUsersId,jdbcType=CHAR},
+      </if>
+      <if test="dInput != null">
+        #{dInput,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dInputUserId != null">
+        #{dInputUserId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="lc.activiti.entity.DepartmentUserRoles">
+    update OA_DEPARTMENT_USERS
+    <set>
+      <if test="cDepartmentId != null">
+        C_DEPARTMENT_ID = #{cDepartmentId,jdbcType=CHAR},
+      </if>
+      <if test="cUsersId != null">
+        C_USERS_ID = #{cUsersId,jdbcType=CHAR},
+      </if>
+      <if test="dInput != null">
+        D_INPUT = #{dInput,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dInputUserId != null">
+        D_INPUT_USER_ID = #{dInputUserId,jdbcType=CHAR},
+      </if>
+    </set>
+    where C_DEPARTMENT_USERS_ID = #{cDepartmentUsersId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lc.activiti.entity.DepartmentUserRoles">
+    update OA_DEPARTMENT_USERS
+    set C_DEPARTMENT_ID = #{cDepartmentId,jdbcType=CHAR},
+      C_USERS_ID = #{cUsersId,jdbcType=CHAR},
+      D_INPUT = #{dInput,jdbcType=TIMESTAMP},
+      D_INPUT_USER_ID = #{dInputUserId,jdbcType=CHAR}
+    where C_DEPARTMENT_USERS_ID = #{cDepartmentUsersId,jdbcType=CHAR}
+  </update>
+</mapper>

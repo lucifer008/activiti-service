@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lc.activiti.dao.IApprovalProgressDao">
+	<update id="updateApprovalProcessNodesByReject">
+		update shop_approval_progress set N_APPROVAL_STATUS=0,D_APPROVAL_DATE=null where C_ORDER_ID=#{businessId}
+	</update>
+	<update id="updateApprovalProcessNodesByPass">
+			update shop_approval_progress set N_APPROVAL_STATUS=1,D_APPROVAL_DATE=sysdate 
+			where C_ORDER_ID=#{businessId} and C_APPROVAL_USER_ID=#{applyUserId}
+	</update>
+	<delete id="deleteApprovalProcessNodes">
+	delete from shop_approval_progress  where C_ORDER_ID=#{businessId}
+	</delete>
+</mapper>
